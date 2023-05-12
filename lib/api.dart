@@ -26,38 +26,11 @@ String ip = "localhost:5001";
 //String ip = "172.11.7.254:98"; //test
 
 
-Future<bool> userValidation(String userID, String password) async {
-  // globals.userID2 = userID;
-  // if(userID == '1' && password == '123'){
-  //   return '1';
-  // }else{
-  //   return '2';
-  // }
-  try {
-    final response = await http.get(
-        Uri.parse('${url}userValidat?userCd=$userID&password=$password'));
-    if (response.statusCode == 200) {
-      // globals.isLoggedIn = true;
-      // var data = json.decode(response.body);
-      bool data = response.body as bool;
-      // globals.userID = userID;
-      // globals.userName = data;
-      // final SharedPreferences prefs = await SharedPreferences.getInstance();
-      // prefs.setString('userID', userID);
-      // prefs.setString('password', password);
-      // if (data != '2') {
-      //   data = '1';
-      // }
-      return data;
-    } else {
-      // globals.isLoggedIn = false;
-      throw Exception('Failed');
-      // return 3;
-    }
-  } catch (e) {
-    //throw Exception('Failed');
-    return false;
+Future<bool> userValidationTemp(String userID, String password) async {
+  if (userID == '1' && password == '123') {
+    return true;
   }
+  return false;
 }
 
 Future<bool> userValidate(String userID, String password) async {
