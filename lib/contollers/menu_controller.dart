@@ -31,6 +31,10 @@ class CustomMenuController extends GetxController{
         return _customIcon(Icons.dashboard, itemName);
       case SalaryMasterRoute:
         return _customIcon(Icons.monetization_on_outlined, itemName);
+      case StockRoute:
+        return _customIcon(Icons.trolley, itemName);
+      case SalesRoute:
+        return _customIcon(Icons.point_of_sale, itemName);
       case SalaryPayoutRoute:
         return _customIcon(Icons.payments_outlined, itemName);
       case LeaveSalaryRoute:
