@@ -1,14 +1,14 @@
 import 'package:admin/constants/style.dart';
 import 'package:flutter/material.dart';
 
-class DocExpiryExpanded extends StatefulWidget {
-  DocExpiryExpanded({required this.tableData});
+class JobDetailsExpanded extends StatefulWidget {
+  JobDetailsExpanded({required this.tableData});
   List<Map<String, dynamic>> tableData ;
   @override
-  _DocExpiryExpandedState createState() => _DocExpiryExpandedState();
+  _JobDetailsExpandedState createState() => _JobDetailsExpandedState();
 }
 
-class _DocExpiryExpandedState extends State<DocExpiryExpanded> {
+class _JobDetailsExpandedState extends State<JobDetailsExpanded> {
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +22,14 @@ class _DocExpiryExpandedState extends State<DocExpiryExpanded> {
               DataColumn(
                 label: Expanded(
                   child: Text(
+                    'Job',
+                    style: tableHeaderStyle,
+                  ),
+                ),
+              ),
+              DataColumn(
+                label: Expanded(
+                  child: Text(
                     'Narration',
                     style: tableHeaderStyle,
                   ),
@@ -30,7 +38,23 @@ class _DocExpiryExpandedState extends State<DocExpiryExpanded> {
               DataColumn(
                 label: Expanded(
                   child: Text(
-                    'Document',
+                    'Assigned To',
+                    style: tableHeaderStyle,
+                  ),
+                ),
+              ),
+              DataColumn(
+                label: Expanded(
+                  child: Text(
+                    'Assigned Date',
+                    style: tableHeaderStyle,
+                  ),
+                ),
+              ),
+              DataColumn(
+                label: Expanded(
+                  child: Text(
+                    'Status',
                     style: tableHeaderStyle,
                   ),
                 ),
@@ -39,30 +63,6 @@ class _DocExpiryExpandedState extends State<DocExpiryExpanded> {
                 label: Expanded(
                   child: Text(
                     'Due Date',
-                    style: tableHeaderStyle,
-                  ),
-                ),
-              ),
-              DataColumn(
-                label: Expanded(
-                  child: Text(
-                    'Renewed Date',
-                    style: tableHeaderStyle,
-                  ),
-                ),
-              ),
-              DataColumn(
-                label: Expanded(
-                  child: Text(
-                    'Edit By',
-                    style: tableHeaderStyle,
-                  ),
-                ),
-              ),
-              DataColumn(
-                label: Expanded(
-                  child: Text(
-                    'Edit Date',
                     style: tableHeaderStyle,
                   ),
                 ),
@@ -83,36 +83,58 @@ class _DocExpiryExpandedState extends State<DocExpiryExpanded> {
                   ),
                 ),
               ),
+              DataColumn(
+                label: Expanded(
+                  child: Text(
+                    'Edit By',
+                    style: tableHeaderStyle,
+                  ),
+                ),
+              ),
+              DataColumn(
+                label: Expanded(
+                  child: Text(
+                    'Edit Date',
+                    style: tableHeaderStyle,
+                  ),
+                ),
+              ),
             ],
             rows: widget.tableData
                 .map(
                   (tableRow) => DataRow(cells: [
-                    DataCell(
-                      Text(tableRow['narration'].toString()),
-                    ),
-                    DataCell(
-                      Text(tableRow['docType'].toString()),
-                    ),
-                    DataCell(
-                      Text(tableRow['dueDate'].toString()),
-                    ),
-                    DataCell(
-                      Text(tableRow['renewedDate'].toString()),
-                    ),
-                    DataCell(
-                      Text(tableRow['editBy'].toString()),
-                    ),
-                    DataCell(
-                      Text(tableRow['editDt'].toString()),
-                    ),
-                    DataCell(
-                      Text(tableRow['creatBy'].toString()),
-                    ),
-                    DataCell(
-                      Text(tableRow['creatDt'].toString()),
-                    )
-                  ]),
-                )
+                DataCell(
+                  Text(tableRow['job'].toString()),
+                ),
+                DataCell(
+                  Text(tableRow['narration'].toString()),
+                ),
+                DataCell(
+                  Text(tableRow['assignedTo'].toString()),
+                ),
+                DataCell(
+                  Text(tableRow['assignedDate'].toString()),
+                ),
+                DataCell(
+                  Text(tableRow['jobStatus'].toString()),
+                ),
+                DataCell(
+                  Text(tableRow['dueDate'].toString()),
+                ),
+                DataCell(
+                  Text(tableRow['creatBy'].toString()),
+                ),
+                DataCell(
+                  Text(tableRow['creatDt'].toString()),
+                ),
+                DataCell(
+                  Text(tableRow['editBy'].toString()),
+                ),
+                DataCell(
+                  Text(tableRow['editDt'].toString()),
+                ),
+              ]),
+            )
                 .toList(),
           ),
         ),

@@ -1,5 +1,5 @@
 import 'package:admin/constants/style.dart';
-import 'package:admin/models/docDetails.dart';
+import 'package:admin/models/empMaster.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -7,62 +7,67 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 
 import '../api.dart';
+import '../models/jobDetails.dart';
 
-class DocDetailsUpload extends StatefulWidget {
+class JobDetailsUpload extends StatefulWidget {
   dynamic closeDialog;
-  DocDetailsUpload(this.closeDialog, {Key? key}) : super(key: key);
+  JobDetailsUpload(this.closeDialog, {Key? key}) : super(key: key);
 
   @override
-  State<DocDetailsUpload> createState() => _DocDetailsUploadState();
+  State<JobDetailsUpload> createState() => _JobDetailsUploadState();
 }
 
-class _DocDetailsUploadState extends State<DocDetailsUpload> {
+class _JobDetailsUploadState extends State<JobDetailsUpload> {
   final _formKey = GlobalKey<FormState>();
 
+  var _jobName = TextEditingController();
   var _narration = TextEditingController();
-  var _document = TextEditingController();
+  var _assignedDate = TextEditingController();
   var _dueDate = TextEditingController();
-  var _renewedDate = TextEditingController();
-  late Map<String, dynamic> _selectedDocType;
+  late EmpMaster _selectedAssignedTo;
+  late Map<String, dynamic> _selectedJobStatus;
 
-  List<Map<String, dynamic>> docTypes = <Map<String, dynamic>>[];
+  List<Map<String, dynamic>> jobStatuses = <Map<String, dynamic>>[];
+  List<EmpMaster> assignedToOptions = <EmpMaster>[];
 
-  _DocDetailsUploadState();
-
-  getDocTypes() async {
-    docTypes = await getDocType();
+  getDropdownInputs() async {
+    jobStatuses = await getJobStatuses();
+    assignedToOptions = await getEmpDetails();
   }
 
-  DocDetails _docDetails = DocDetails(
+  JobDetails _jobDetails = JobDetails(
       id: 0,
+      job: "",
       narration: "",
-      empCode: 1,
-      docid: 0,
-      dueDate: DateTime.now(),
-      renewedDate: DateTime.now(),
+      assignedDate: "",
+      jobStatus: 0,
+      assignedTo: 0,
+      dueDate: "",
       creatBy: 1,
       creatDt: DateTime.now(),
       editBy: 1,
-      editDt: DateTime.now()
-  );
+      editDt: DateTime.now());
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState?.save();
       // Submit the form data to a backend API or do something else with it
       print('Submitted form data:');
-      print('Name: $_narration');
-      print('Document: $_document');
+      print('Client Name: $_jobName');
+      print('Name: $_assignedDate');
+      print('Narration: $_narration');
+      print('PO Status: $_selectedAssignedTo');
+      print('Type: $_selectedJobStatus');
       print('Due Date: $_dueDate');
-      print('Renewed Date: $_renewedDate');
     }
-    _docDetails.narration = _narration.text;
-    // _docDetails.docid = _document.text;
-    _docDetails.dueDate = DateTime.parse(_dueDate.text);
-    _docDetails.renewedDate = DateTime.parse(_renewedDate.text);
-    _docDetails.docid = _selectedDocType['id'];
+    _jobDetails.job = _jobName.text;
+    _jobDetails.narration = _narration.text;
+    _jobDetails.assignedTo = _selectedAssignedTo.id;
+    _jobDetails.assignedDate = DateFormat('yyyy-MM-dd').format(DateTime.parse(_assignedDate.text));
+    _jobDetails.jobStatus = _selectedJobStatus['id'];
+    _jobDetails.dueDate = DateFormat('yyyy-MM-dd').format(DateTime.parse(_dueDate.text));
 
-    bool status = await saveDocDetails(_docDetails);
+    bool status = await saveJobDetails(_jobDetails);
     if (status) {
       Fluttertoast.showToast(
         msg: "Saved",
@@ -75,19 +80,12 @@ class _DocDetailsUploadState extends State<DocDetailsUpload> {
         webPosition: "center",
         webShowClose: false,
       );
-      _narration.clear();
-
-      _document.clear();
-
-      _dueDate.clear();
-
-      _renewedDate.clear();
+      _assignedDate.clear();
 
       Navigator.pop(context);
       widget.closeDialog();
 
       setState(() {});
-      // _salaryMaster = SalaryMaster as SalaryMaster;
     } else {
       Get.showSnackbar(
         const GetSnackBar(
@@ -103,7 +101,7 @@ class _DocDetailsUploadState extends State<DocDetailsUpload> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<dynamic>(
-        future: getDocTypes(),
+        future: getDropdownInputs(),
         builder: (context, AsyncSnapshot<dynamic> _data) {
           return Form(
             key: _formKey,
@@ -112,10 +110,21 @@ class _DocDetailsUploadState extends State<DocDetailsUpload> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextFormField(
-                    decoration: const InputDecoration(labelText: 'Name'),
+                    decoration: const InputDecoration(labelText: 'Job'),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please enter name';
+                        return 'Please enter client name';
+                      }
+                      return null;
+                    },
+                    controller: _jobName,
+                    onSaved: (value) {},
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(labelText: 'Narration'),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter narration';
                       }
                       return null;
                     },
@@ -125,12 +134,55 @@ class _DocDetailsUploadState extends State<DocDetailsUpload> {
                   DropdownButtonFormField(
                       validator: (value) {
                         if (value == null) {
-                          return 'Please select document type';
+                          return 'Please select assigned to';
                         }
                         return null;
                       },
-                      decoration: const InputDecoration(labelText: 'Doc Type'),
-                      items: docTypes
+                      decoration: const InputDecoration(labelText: 'Assigned To'),
+                      items: assignedToOptions
+                          .map<DropdownMenuItem<String>>((EmpMaster employee) {
+                        return DropdownMenuItem<String>(
+                          value: employee.name,
+                          child: Text(employee.name),
+                        );
+                      }).toList(),
+                      onChanged: (String? value) {
+                        setState(() {
+                          _selectedAssignedTo = assignedToOptions.firstWhere(
+                                  (employee) => employee.name == value);
+                        });
+                      }),
+                  TextFormField(
+                    controller: _assignedDate,
+                    decoration: const InputDecoration(labelText: 'Assigned Date'),
+                    onTap: () async {
+                      DateTime? date = DateTime(1900);
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      date = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2100));
+                      if (date != null) {
+                        _assignedDate.text = DateFormat('yyyy-MM-dd').format(date);
+                      }
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please select assigned date';
+                      }
+                      return null;
+                    },
+                  ),
+                  DropdownButtonFormField(
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Please select job status';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(labelText: 'Status'),
+                      items: jobStatuses
                           .map<DropdownMenuItem<String>>((dynamic value) {
                         return DropdownMenuItem<String>(
                           value: value['description'].toString(),
@@ -139,8 +191,8 @@ class _DocDetailsUploadState extends State<DocDetailsUpload> {
                       }).toList(),
                       onChanged: (String? value) {
                         setState(() {
-                          // _selectedDocType = value!;
-                          _selectedDocType = docTypes.firstWhere((docType) => docType['description'] == value);
+                          _selectedJobStatus = jobStatuses.firstWhere(
+                                  (jobStatus) => jobStatus['description'] == value);
                         });
                       }),
                   TextFormField(
@@ -159,32 +211,8 @@ class _DocDetailsUploadState extends State<DocDetailsUpload> {
                       }
                     },
                     validator: (value) {
-                      if(value!.isEmpty) {
+                      if (value!.isEmpty) {
                         return 'Please select Due Date';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _renewedDate,
-                    decoration:
-                        const InputDecoration(labelText: 'Renewed Date'),
-                    onTap: () async {
-                      DateTime? date = DateTime(1900);
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      date = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1900),
-                          lastDate: DateTime(2100));
-                      if (date != null) {
-                        _renewedDate.text =
-                            DateFormat('yyyy-MM-dd').format(date);
-                      }
-                    },
-                    validator: (value) {
-                      if(value!.isEmpty) {
-                        return 'Please select Renewed Date';
                       }
                       return null;
                     },

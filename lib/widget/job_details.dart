@@ -2,23 +2,23 @@ import 'package:admin/constants/style.dart';
 import 'package:admin/utils/common_utils.dart';
 import 'package:admin/widget/custom_alert_dialog.dart';
 import 'package:admin/widget/custom_text.dart';
-import 'package:admin/widget/doc_details_upload.dart';
-import 'package:admin/widget/doc_expiry_expanded.dart';
+import 'package:admin/widget/job_details_expanded_with_filter.dart';
+import 'package:admin/widget/job_details_upload.dart';
 import 'package:flutter/material.dart';
 
 import '../api.dart';
 import 'package:intl/intl.dart';
 
-class DocExpiry extends StatefulWidget {
+class JobDetailsWidget extends StatefulWidget {
   @override
-  _DocExpiryState createState() => _DocExpiryState();
+  _JobDetailsWidgetState createState() => _JobDetailsWidgetState();
 }
 
-class _DocExpiryState extends State<DocExpiry> {
+class _JobDetailsWidgetState extends State<JobDetailsWidget> {
   List<Map<String, dynamic>> tableData = <Map<String, String>>[];
 
   getData() async {
-    tableData = await getDocDetails();
+    tableData = await getJobDetails('', '', '');
   }
 
   closeDialog() {
@@ -44,7 +44,7 @@ class _DocExpiryState extends State<DocExpiry> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const CustomText(
-                      text: "Document Details",
+                      text: "Job Details",
                       size: 18,
                       color: Colors.black,
                       weight: FontWeight.bold,
@@ -77,7 +77,7 @@ class _DocExpiryState extends State<DocExpiry> {
                         DataColumn(
                           label: Expanded(
                             child: Text(
-                              'Name',
+                              'Job',
                               style: tableHeaderStyle,
                             ),
                           ),
@@ -85,7 +85,15 @@ class _DocExpiryState extends State<DocExpiry> {
                         DataColumn(
                           label: Expanded(
                             child: Text(
-                              'Doc Type',
+                              'Narration',
+                              style: tableHeaderStyle,
+                            ),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Expanded(
+                            child: Text(
+                              'Assigned To',
                               style: tableHeaderStyle,
                             ),
                           ),
@@ -107,10 +115,13 @@ class _DocExpiryState extends State<DocExpiry> {
                                         DateTime.parse(tableRow['dueDate']))),
                                 cells: [
                                   DataCell(
+                                    Text(tableRow['job']),
+                                  ),
+                                  DataCell(
                                     Text(tableRow['narration']),
                                   ),
                                   DataCell(
-                                    Text(tableRow['docType']),
+                                    Text(tableRow['assignedTo']),
                                   ),
                                   DataCell(
                                     Text(DateFormat("yyyy-MM-dd")
@@ -160,10 +171,11 @@ class _DocExpiryState extends State<DocExpiry> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return CustomAlertDialog(
-          'Document Details',
-          DocExpiryExpanded(tableData: tableData),
-        );
+        // return CustomAlertDialog(
+        //   'Job Details',
+        //   JobDetailsExpanded(tableData: tableData),
+        // );
+        return JobDetailsExpandedWithFilter();
       },
     );
   }
@@ -173,8 +185,8 @@ class _DocExpiryState extends State<DocExpiry> {
       context: context,
       builder: (BuildContext context) {
         return CustomAlertDialog(
-          'Upload Document Details',
-          DocDetailsUpload(this.closeDialog),
+          'Upload Job Details',
+          JobDetailsUpload(closeDialog),
         );
       },
     );

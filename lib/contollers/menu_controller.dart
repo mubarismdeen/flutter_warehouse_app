@@ -23,9 +23,9 @@ class CustomMenuController extends GetxController{
 
   Widget returnIconFor(String itemName){
     switch(itemName){
-      case OverViewPageRoute:
-        return _customIcon(Icons.trending_up, itemName);
       case AttendanceRoute:
+        return _customIcon(Icons.pending_actions, itemName);
+      case EmployeesRoute:
         return _customIcon(Icons.people_rounded, itemName);
       case DashboardRoute:
         return _customIcon(Icons.dashboard, itemName);
@@ -35,6 +35,10 @@ class CustomMenuController extends GetxController{
         return _customIcon(Icons.payments_outlined, itemName);
       case LeaveSalaryRoute:
         return _customIcon(Icons.account_balance_wallet_outlined, itemName);
+      case ClientsRoute:
+        return _customIcon(Icons.handshake_outlined, itemName);
+      case GratuityRoute:
+        return _customIcon(Icons.savings_outlined, itemName);
       case AuthenticationPageRoute:
         return _customIcon(Icons.exit_to_app, itemName);
       default:

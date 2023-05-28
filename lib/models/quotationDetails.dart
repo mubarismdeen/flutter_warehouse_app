@@ -1,19 +1,39 @@
 
 class QuotationDetails {
   int id = 0;
-  String quotation = "NULL";
-  String company = "NULL";
-  String state = "NULL";
-  String creatBy = "NULL";
+  int clientId = 0;
+  String narration = "";
+  String name = "";
+  String date = "";
+  int invoiceNo = 0;
+  int poRefNo = 0;
+  int reportNo = 0;
+  double invoiceAmt = 0.0;
+  int poNo = 0;
+  int poStatus = 0;
+  int invStatus = 0;
+  int type = 0;
+  String dueDate = "";
+  int creatBy = 0;
   DateTime creatDt = DateTime.now();
-  String editBy = "NULL";
+  int editBy = 0;
   DateTime editDt = DateTime.now();
 
   QuotationDetails({
     required this.id,
-    required this.quotation,
-    required this.company,
-    required this.state,
+    required this.clientId,
+    required this.narration,
+    required this.name,
+    required this.date,
+    required this.invoiceNo,
+    required this.poNo,
+    required this.poRefNo,
+    required this.reportNo,
+    required this.invoiceAmt,
+    required this.poStatus,
+    required this.invStatus,
+    required this.type,
+    required this.dueDate,
     required this.creatBy,
     required this.creatDt,
     required this.editBy,
@@ -25,24 +45,22 @@ class QuotationDetails {
   Map<String, dynamic> toJson() =>
       {
         'id': id,
-        'narration': quotation,
-        'docType': company,
-        'dueDate': state,
+        'clientId': clientId,
+        'narration': narration,
+        'name': name,
+        'date': date,
+        'poNo' : poNo,
+        'poRefNo' : poRefNo,
+        'reportNo' : reportNo,
+        'invoiceNo': invoiceNo,
+        'invoiceAmt' : invoiceAmt,
+        'poStatus': poStatus,
+        'invStatus': invStatus,
+        'type': type,
+        'dueDate': dueDate,
         'creatBy':creatBy,
-        'creatDt':creatDt,
+        'creatDt':creatDt.toIso8601String(),
         'editBy':editBy,
-        'editDt':editDt,
+        'editDt':editDt.toIso8601String(),
       };
-
-  QuotationDetails.fromJson(Map<String, dynamic> json) {
-    id = json['id'] ?? "NULL";
-    quotation = json['narration'] ?? "narration";
-    company = json['docType'] ?? "NULL";
-    state = json['dueDate'] ?? "dueDate";
-    creatBy = json['creatBy'] ?? "NULL";
-    creatDt = json['creatDt'] ?? DateTime.now();
-    editBy = json['editBy'] ?? "NULL";
-    editDt = json['editDt'] ?? DateTime.now();
-    // docDate = json['h_DocDt'] == null ?  DateTime.now() : DateTime.tryParse(json['h_DocDt'])??DateTime.now();
-  }
 }

@@ -1,20 +1,22 @@
 
+import 'package:admin/pages/Clients/clients_screen.dart';
+import 'package:admin/pages/Employees/employees_screen.dart';
 import 'package:admin/pages/Salary/leave_salary.dart';
 import 'package:admin/pages/Salary/salary_payout.dart';
 import 'package:admin/routes/routes.dart';
 import 'package:flutter/material.dart';
 
-import '../pages/Overviewpage/overviewpage.dart';
+import '../pages/Attendance/attendance.dart';
+import '../pages/Gratuity/gratuity_screen.dart';
 import '../pages/Salary/salary_master.dart';
-import '../pages/Profile/attendance.dart';
 import '../pages/Transfers/dashboard.dart';
 
 
 
 Route<dynamic> generateRoute(RouteSettings settings){
   switch(settings.name){
-    case OverViewPageRoute:
-      return _getPageRoute(const OverViewPage());
+    case EmployeesRoute:
+      return _getPageRoute(const EmployeesScreen());
     case AttendanceRoute:
       return _getPageRoute(const Attendance());
     case DashboardRoute:
@@ -25,6 +27,10 @@ Route<dynamic> generateRoute(RouteSettings settings){
       return _getPageRoute(const SalaryPayout());
     case LeaveSalaryRoute:
       return _getPageRoute(const LeaveSalaryPage());
+    case ClientsRoute:
+      return _getPageRoute(const ClientsScreen());
+    case GratuityRoute:
+      return _getPageRoute(const GratuityScreen());
     default:
       return _getPageRoute(const Attendance());
   }
