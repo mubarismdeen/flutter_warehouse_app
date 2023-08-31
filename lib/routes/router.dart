@@ -3,8 +3,6 @@ import 'package:admin/pages/Clients/clients_screen.dart';
 import 'package:admin/pages/Employees/employees_screen.dart';
 import 'package:admin/pages/Salary/leave_salary.dart';
 import 'package:admin/pages/Salary/salary_payout.dart';
-import 'package:admin/pages/sales/sales_screen.dart';
-import 'package:admin/pages/stock/stock_screen.dart';
 import 'package:admin/routes/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +10,8 @@ import '../pages/Attendance/attendance.dart';
 import '../pages/Gratuity/gratuity_screen.dart';
 import '../pages/Salary/salary_master.dart';
 import '../pages/Transfers/dashboard.dart';
+import '../pages/sales/sales_screen.dart';
+import '../pages/stock/stock_screen.dart';
 
 
 
@@ -22,7 +22,7 @@ Route<dynamic> generateRoute(RouteSettings settings){
     case AttendanceRoute:
       return _getPageRoute(const Attendance());
     case DashboardRoute:
-      return _getPageRoute(const Dashboard());
+      return _getPageRoute(Dashboard());
     case SalaryMasterRoute:
       return _getPageRoute(const SalaryMaster());
     case StockRoute:

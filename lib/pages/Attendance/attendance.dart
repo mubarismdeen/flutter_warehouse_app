@@ -1,12 +1,12 @@
 import 'package:admin/constants/style.dart';
+import 'package:admin/globalState.dart';
 import 'package:admin/models/attendanceModel.dart';
 import 'package:admin/utils/common_utils.dart';
+import 'package:admin/widget/attendance_excel_upload.dart';
 import 'package:admin/widget/custom_alert_dialog.dart';
 import 'package:admin/widget/custom_text.dart';
-import 'package:admin/widget/employee_attendance_form.dart';
 import 'package:admin/widget/month_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:intl/intl.dart';
@@ -31,9 +31,16 @@ class _AttendanceState extends State<Attendance> {
   List<AttendanceModel> _attendanceList = List<AttendanceModel>.empty();
   bool _editable = false;
   bool _enterAttendance = false;
+  // bool _enableUpload = false;
   void onDateChange(DateTime newDate) {
     setState(() {
       _pickedDate = newDate;
+    });
+  }
+
+  closeDialog() {
+    setState(() {
+      getAttendanceData();
     });
   }
 
@@ -106,9 +113,9 @@ class _AttendanceState extends State<Attendance> {
             overseas: att.totalSpecialOvertimeHours,
             anchorage: att.totalAnchorageDays,
             date: DateFormat('yyyy-MM').format(_pickedDate),
-            editBy: 1,
+            editBy: GlobalState.userEmpCode,
             editDt: DateTime.now(),
-            creatBy: 1,
+            creatBy: GlobalState.userEmpCode,
             creatDt: DateTime.now()))
         .toList();
   }
@@ -144,9 +151,9 @@ class _AttendanceState extends State<Attendance> {
               overseas: 0,
               anchorage: 0,
               date: DateFormat('yyyy-MM').format(_pickedDate),
-              editBy: 1,
+              editBy: GlobalState.userEmpCode,
               editDt: DateTime.now(),
-              creatBy: 1,
+              creatBy: GlobalState.userEmpCode,
               creatDt: DateTime.now())
         ];
       } else {
@@ -173,9 +180,9 @@ class _AttendanceState extends State<Attendance> {
             overseas: 0,
             anchorage: 0,
             date: DateFormat('yyyy-MM').format(_pickedDate),
-            editBy: 1,
+            editBy: GlobalState.userEmpCode,
             editDt: DateTime.now(),
-            creatBy: 1,
+            creatBy: GlobalState.userEmpCode,
             creatDt: DateTime.now()));
       }
     }
@@ -245,7 +252,7 @@ class _AttendanceState extends State<Attendance> {
     } else {
       _attendanceList.add(AttendanceModel(
           id: 0,
-          empCode: 0,
+          empCode: '',
           attendance: 0,
           offdays: 0,
           lop: 0,
@@ -254,9 +261,9 @@ class _AttendanceState extends State<Attendance> {
           overseas: 0,
           anchorage: 0,
           date: DateFormat('yyyy-MM').format(DateTime.now()).toString(),
-          editBy: 1,
+          editBy: GlobalState.userEmpCode,
           editDt: DateTime.now(),
-          creatBy: 1,
+          creatBy: GlobalState.userEmpCode,
           creatDt: DateTime.now()));
     }
   }
@@ -538,17 +545,9 @@ class _AttendanceState extends State<Attendance> {
         // await _loadData();
         bool status = await saveAttendance(_attendanceList);
         if (status) {
-          Fluttertoast.showToast(
-            msg: "Saved",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0,
-            webPosition: "center",
-            webShowClose: false,
-          );
+          showSaveSuccessfulMessage(context);
+        } else {
+          showSaveFailedMessage(context);
         }
         setState(() {
           _editable = false;
@@ -590,22 +589,12 @@ class _AttendanceState extends State<Attendance> {
       context: context,
       builder: (BuildContext context) {
         return CustomAlertDialog(
-          'Upload Attendance Details',
-          EmployeeAttendanceForm(),
+          title: 'Upload Attendance Details',
+          child: AttendanceExcelUpload(closeDialog, _pickedDate),
         );
       },
     );
   }
-
-  // void _openViewDialog() {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return CustomAlertDialog(
-  //           'Attendance History', AttendanceHistoryScreen());
-  //     },
-  //   );
-  // }
 
   Widget _uploadButton() {
     return ElevatedButton(
@@ -618,16 +607,4 @@ class _AttendanceState extends State<Attendance> {
           style: TextStyle(fontWeight: FontWeight.bold)),
     );
   }
-
-  // Widget _viewButton() {
-  //   return ElevatedButton(
-  //     style: ElevatedButton.styleFrom(
-  //       padding: const EdgeInsets.all(16.0),
-  //       backgroundColor: themeColor,
-  //     ),
-  //     onPressed: _openViewDialog,
-  //     child: const Text('View Attendance',
-  //         style: TextStyle(fontWeight: FontWeight.bold)),
-  //   );
-  // }
 }

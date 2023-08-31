@@ -1,6 +1,6 @@
 class SaveEmployeeDetails {
   int id = 0;
-  int empCode = 0;
+  String empCode = '';
   String name = '';
   String mobile1 = '';
   String mobile2 = '';
@@ -8,11 +8,13 @@ class SaveEmployeeDetails {
   int statusId = 0;
   int natianalityId = 0;
   DateTime joinDt = DateTime.now();
+  DateTime? resignDt;
   DateTime birthDt = DateTime.now();
-  int editBy = 0;
+  String editBy = '';
   DateTime editDate = DateTime.now();
-  int creatBy = 0;
+  String creatBy = '';
   DateTime creatDate = DateTime.now();
+  int status = 1;
 
   SaveEmployeeDetails({
     required this.id,
@@ -24,6 +26,7 @@ class SaveEmployeeDetails {
     required this.statusId,
     required this.natianalityId,
     required this.joinDt,
+    required this.resignDt,
     required this.birthDt,
     required this.editBy,
     required this.editDate,
@@ -41,11 +44,13 @@ class SaveEmployeeDetails {
     'statusId': statusId,
     'natianalityId': natianalityId,
     'joinDt': joinDt.toIso8601String(),
+    'resignDt': resignDt?.toIso8601String(),
     'birthDt': birthDt.toIso8601String(),
     'editBy': editBy,
     'editDt': editDate.toIso8601String(),
     'creatBy': creatBy,
     'creatDt': creatDate.toIso8601String(),
+    'status': status,
   };
 
 }

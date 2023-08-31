@@ -11,7 +11,7 @@ const GratuityRoute = "Gratuity";
 const AuthenticationPageRoute = "Authentication";
 
 
-List sideMenuItems =[
+List allSideMenuItems =[
   DashboardRoute,
   StockRoute,
   SalesRoute,

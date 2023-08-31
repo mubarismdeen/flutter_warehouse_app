@@ -6,10 +6,11 @@ class JobDetails {
   String assignedDate = "";
   String dueDate = "";
   int jobStatus = 0;
-  int assignedTo = 0;
-  int creatBy = 0;
+  int status = 1;
+  String assignedTo = "";
+  String creatBy = "";
   DateTime creatDt = DateTime.now();
-  int editBy = 0;
+  String editBy = "";
   DateTime editDt = DateTime.now();
 
   JobDetails({
@@ -18,6 +19,7 @@ class JobDetails {
     required this.narration,
     required this.assignedDate,
     required this.jobStatus,
+    required this.status,
     required this.assignedTo,
     required this.dueDate,
     required this.creatBy,
@@ -35,6 +37,7 @@ class JobDetails {
         'narration': narration,
         'assignedDate': assignedDate,
         'jobStatus': jobStatus,
+        'status': status,
         'assignedTo': assignedTo,
         'dueDate': dueDate,
         'creatBy':creatBy,
@@ -43,17 +46,4 @@ class JobDetails {
         'editDt':editDt.toIso8601String(),
       };
 
-// QuotationDetails.fromJson(Map<String, dynamic> json) {
-//   id = json['id'] ?? 0;
-//   narration = json['narration'] ?? "";
-//   quotationNo = json['empCode'] ?? 0;
-//   invoiceNo = json['docid'] ?? 0;
-//   dueDate = json['dueDate'] ?? DateTime.now();
-//   renewedDate = json['renewedDate'] ?? DateTime.now();
-//   creatBy = json['creatBy'] ?? 0;
-//   creatDt = json['creatDt'] ?? DateTime.now();
-//   editBy = json['editBy'] ?? 0;
-//   editDt = json['editDt'] ?? DateTime.now();
-//   // docDate = json['h_DocDt'] == null ?  DateTime.now() : DateTime.tryParse(json['h_DocDt'])??DateTime.now();
-// }
 }

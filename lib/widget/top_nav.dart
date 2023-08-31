@@ -2,6 +2,7 @@ import 'package:admin/constants/style.dart';
 import 'package:admin/helpers/responsiveness.dart';
 import 'package:flutter/material.dart';
 
+import '../globalState.dart';
 import '../helpers/image_placeholder.dart';
 import 'custom_text.dart';
 
@@ -12,8 +13,8 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
             tag: 'icon',
             child: Container(
               height: 35,
-              padding: EdgeInsets.only(left: 10, top: 5),
-              child: ExcludeSemantics(
+              padding: const EdgeInsets.only(left: 10, top: 5),
+              child: const ExcludeSemantics(
                 child: FadeInImagePlaceholder(
                   image: AssetImage('images/app_icon.png'),
                   placeholder: SizedBox.shrink(),
@@ -77,8 +78,8 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
             const SizedBox(
               width: 5,
             ),
-            const CustomText(
-                text: "Master User",
+            CustomText(
+                text: GlobalState.username,
                 size: 16,
                 color: lightGrey,
                 weight: FontWeight.bold),

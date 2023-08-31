@@ -55,7 +55,7 @@ class _SalesScreenState extends State<SalesScreen> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return CustomAlertDialog('New Sale', const AddSalesForm(),);
+        return CustomAlertDialog(title: 'New Sale', child: const AddSalesForm(),);
       },
     );
   }

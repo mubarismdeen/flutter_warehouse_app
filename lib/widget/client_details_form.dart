@@ -1,15 +1,19 @@
-import 'package:admin/constants/style.dart';
+import 'package:admin/globalState.dart';
 import 'package:admin/models/clientDetails.dart';
+import 'package:admin/models/userPrivileges.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../api.dart';
+import '../utils/common_utils.dart';
 
 class ClientDetailsForm extends StatefulWidget {
   dynamic closeDialog;
-  ClientDetailsForm(this.closeDialog, {Key? key}) : super(key: key);
+  ClientDetails? tableRow;
+  UserPrivileges privileges;
+
+  ClientDetailsForm(this.closeDialog, this.tableRow, this.privileges,
+      {Key? key})
+      : super(key: key);
 
   @override
   State<ClientDetailsForm> createState() => _ClientDetailsFormState();
@@ -23,18 +27,26 @@ class _ClientDetailsFormState extends State<ClientDetailsForm> {
   var _mobile1 = TextEditingController();
   var _mobile2 = TextEditingController();
 
+  setValue() {
+    _clientDetails.id = widget.tableRow!.id;
+    _name.text = widget.tableRow!.name;
+    _address.text = widget.tableRow!.address;
+    _mobile1.text = widget.tableRow!.mobile1;
+    _mobile2.text = widget.tableRow!.mobile2;
+  }
+
   ClientDetails _clientDetails = ClientDetails(
       id: 0,
       name: '',
       address: '',
       mobile1: '',
       mobile2: '',
-      editBy: 1,
+      editBy: GlobalState.userEmpCode,
       editDt: DateTime.now(),
-      creatBy: 1,
+      creatBy: GlobalState.userEmpCode,
       creatDt: DateTime.now());
 
-  Future<void> _submitForm() async {
+  Future<void> _onSubmit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState?.save();
       // Submit the form data to a backend API or do something else with it
@@ -51,36 +63,32 @@ class _ClientDetailsFormState extends State<ClientDetailsForm> {
 
     bool status = await saveClientDetails(_clientDetails);
     if (status) {
-      Fluttertoast.showToast(
-        msg: "Saved",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-        webPosition: "center",
-        webShowClose: false,
-      );
-
+      showSaveSuccessfulMessage(context);
       Navigator.pop(context);
       widget.closeDialog();
-
       setState(() {});
     } else {
-      Get.showSnackbar(
-        const GetSnackBar(
-          title: "failed to save",
-          message: '',
-          icon: Icon(Icons.refresh),
-          duration: Duration(seconds: 3),
-        ),
-      );
+      showSaveFailedMessage(context);
+    }
+  }
+
+  Future<void> _onDelete() async {
+    bool status = await deleteClientDetails(_clientDetails.id);
+    if (status) {
+      showSaveSuccessfulMessage(context);
+      Navigator.pop(context);
+      widget.closeDialog();
+      setState(() {});
+    } else {
+      showSaveFailedMessage(context);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.tableRow != null) {
+      setValue();
+    }
     return Form(
       key: _formKey,
       child: SingleChildScrollView(
@@ -135,22 +143,12 @@ class _ClientDetailsFormState extends State<ClientDetailsForm> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: themeColor,
-                  ),
-                  onPressed: _submitForm,
-                  child: const Text('Submit'),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: themeColor,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Cancel'),
-                ),
+                ...getActionButtonsWithPrivilege(
+                    context: context,
+                    privileges: widget.privileges,
+                    hasData: widget.tableRow != null,
+                    onSubmit: _onSubmit,
+                    onDelete: _onDelete),
               ],
             ),
           ],

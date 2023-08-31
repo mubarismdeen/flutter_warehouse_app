@@ -14,10 +14,11 @@ class QuotationDetails {
   int invStatus = 0;
   int type = 0;
   String dueDate = "";
-  int creatBy = 0;
+  String creatBy = "";
   DateTime creatDt = DateTime.now();
-  int editBy = 0;
+  String editBy = "";
   DateTime editDt = DateTime.now();
+  int status = 1;
 
   QuotationDetails({
     required this.id,
@@ -62,5 +63,6 @@ class QuotationDetails {
         'creatDt':creatDt.toIso8601String(),
         'editBy':editBy,
         'editDt':editDt.toIso8601String(),
+        'status': status,
       };
 }
