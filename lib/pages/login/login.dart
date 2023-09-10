@@ -1,6 +1,7 @@
 import 'package:admin/constants/style.dart';
 import 'package:admin/globalState.dart';
 import 'package:admin/models/userScreens.dart';
+import 'package:admin/utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -104,21 +105,30 @@ class _MainViewState extends State<_MainView> {
               showLoading = true;
             });
 
-            // List<UserScreens> screensForUser = await authorizeUser(
+            List<UserScreens> screensForUser = [];
+            try {
+              screensForUser = await authorizeUser(
+                widget.usernameController!.text,
+                widget.passwordController!.text,
+              );
+            } catch (ex) {
+              setState(() {
+                showError = false;
+              });
+              showSaveFailedMessage(context, "Error in establishing connection with the server");
+            }
+
+            if (screensForUser.isNotEmpty) {
+              logStatus1 = true;
+              GlobalState.setScreensForUser(widget.usernameController!.text, screensForUser.first);
+            }
+            // logStatus1 = await localUserValidation(
             //   widget.usernameController!.text,
             //   widget.passwordController!.text,
             // );
-            // if (screensForUser.isNotEmpty) {
-            //   logStatus1 = true;
-            //   GlobalState.setScreensForUser(widget.usernameController!.text, screensForUser.first);
+            // if (logStatus1) {
+            //   GlobalState.setScreensForLocalValidation();
             // }
-            logStatus1 = await localUserValidation(
-              widget.usernameController!.text,
-              widget.passwordController!.text,
-            );
-            if (logStatus1) {
-              GlobalState.setScreensForLocalValidation();
-            }
 
             if (logStatus1) {
               showError = false;
@@ -400,7 +410,7 @@ class _LoginButtonState extends State<_LoginButton> {
             widget.status ? const SizedBox(width: 12) : Container(),
             widget.status
                 ? const Text(
-                    "user name or password is wrong",
+                    "username or password is wrong",
                     style: TextStyle(color: Colors.white),
                   )
                 : Container(),

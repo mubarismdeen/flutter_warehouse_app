@@ -22,7 +22,7 @@ import 'models/salaryPay.dart';
 import 'models/userDetails.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-String ip = "localhost:5001";
+String ip = "localhost:8080";
 // String ip = "localhost:81";     // IIS
 // String ip = "172.11.7.254:88"; //live
 // String ip = "172.11.7.254:98"; //test
@@ -71,7 +71,7 @@ Future<bool> userValidate(String userID, String password) async {
 }
 
 Future<List<UserScreens>> authorizeUser(String username, String password) async {
-  String urlWithParams = "http://$ip/Hrms/authorizeUser?userName=$username&password=$password";
+  String urlWithParams = "http://$ip/api/authorizeUser?username=$username&password=$password";
   List<UserScreens> list = (await httpConnect(urlWithParams, HttpMethod.GET) as List)
       .map((job) => UserScreens.fromJson(job)).toList();
   return list;

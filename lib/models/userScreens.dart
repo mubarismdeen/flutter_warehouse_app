@@ -28,9 +28,9 @@ class UserScreens {
     clients =  json['clients']??false;
     gratuity =  json['gratuity']??false;
     editBy = json['editBy']??'';
-    editDt = DateTime.parse(json['editDt']);
-    creatBy = json['creatBy']??'';
-    creatDt = DateTime.parse(json['creatDt']);
+    editDt = DateTime.parse(json['editDate']);
+    creatBy = json['createBy']??'';
+    creatDt = DateTime.parse(json['createDate']);
   }
 
   Map<String, dynamic> toJson() => {
