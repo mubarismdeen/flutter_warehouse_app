@@ -2,14 +2,15 @@
 class DocDetails {
   int id = 0;
   String narration = "";
-  int empCode = 0;
+  String empCode = "";
   int docid = 0;
   DateTime dueDate = DateTime.now();
   DateTime renewedDate = DateTime.now();
-  int creatBy = 0;
+  String creatBy = '';
   DateTime creatDt = DateTime.now();
-  int editBy = 0;
+  String editBy = '';
   DateTime editDt = DateTime.now();
+  int status = 1;
 
   DocDetails({
     required this.id,
@@ -38,19 +39,20 @@ class DocDetails {
         'creatDt':creatDt.toIso8601String(),
         'editBy':editBy,
         'editDt':editDt.toIso8601String(),
+        'status': status,
       };
 
   DocDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? 0;
     narration = json['narration'] ?? "";
-    empCode = json['empCode'] ?? 0;
+    empCode = json['empCode'] ?? "";
     docid = json['docid'] ?? 0;
     dueDate = json['dueDate'] ?? DateTime.now();
     renewedDate = json['renewedDate'] ?? DateTime.now();
-    creatBy = json['creatBy'] ?? 0;
+    creatBy = json['creatBy'] ?? '';
     creatDt = json['creatDt'] ?? DateTime.now();
-    editBy = json['editBy'] ?? 0;
+    editBy = json['editBy'] ?? '';
     editDt = json['editDt'] ?? DateTime.now();
-    // docDate = json['h_DocDt'] == null ?  DateTime.now() : DateTime.tryParse(json['h_DocDt'])??DateTime.now();
+    status = json['status'] ?? 1;
   }
 }

@@ -1,13 +1,20 @@
 import 'package:admin/api.dart';
 import 'package:admin/constants/style.dart';
+import 'package:admin/models/userPrivileges.dart';
 import 'package:admin/utils/common_utils.dart';
 import 'package:admin/widget/custom_alert_dialog.dart';
 import 'package:admin/widget/custom_text.dart';
 import 'package:admin/widget/quotations_expanded_with_filter.dart';
 import 'package:admin/widget/quotations_upload.dart';
 import 'package:flutter/material.dart';
+import 'custom_add_new_button.dart';
+import 'custom_view_details_button.dart';
 
 class QuotationsPending extends StatefulWidget {
+  UserPrivileges privileges;
+  QuotationsPending(this.privileges, {Key? key})
+      : super(key: key);
+
   @override
   _QuotationsPendingState createState() => _QuotationsPendingState();
 }
@@ -15,14 +22,14 @@ class QuotationsPending extends StatefulWidget {
 class _QuotationsPendingState extends State<QuotationsPending> {
   List<Map<String, dynamic>> tableData = <Map<String, String>>[];
 
-  String _selectedClientName = '';
+  String _selectedCustomerName = '';
   String _selectedName = '';
   String _selectedPoStatus = '';
   String _selectedInvoiceStatus = '';
   String _selectedType = '';
 
   getData() async {
-    tableData = await getQuotationDetails(_selectedClientName, _selectedName,
+    tableData = await getQuotationDetails(_selectedCustomerName, _selectedName,
         _selectedPoStatus, _selectedInvoiceStatus, _selectedType);
   }
 
@@ -32,10 +39,10 @@ class _QuotationsPendingState extends State<QuotationsPending> {
     });
   }
 
-  applyFilter(String clientName, String name, String poStatus,
+  applyFilter(String customerName, String name, String poStatus,
       String invoiceStatus, String type) {
     setState(() {
-      _selectedClientName = clientName;
+      _selectedCustomerName = customerName;
       _selectedName = name;
       _selectedPoStatus = poStatus;
       _selectedInvoiceStatus = invoiceStatus;
@@ -60,27 +67,13 @@ class _QuotationsPendingState extends State<QuotationsPending> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const CustomText(
-                      text: "Quotations",
+                      text: "Quotation Details",
                       size: 18,
                       color: Colors.black,
                       weight: FontWeight.bold,
                     ),
-                    TextButton(
-                      onPressed: _openUploadDialog,
-                      child: Row(
-                        children: const [
-                          Icon(Icons.add, size: 16, weight: 900),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          CustomText(
-                              text: "Add New",
-                              size: 14,
-                              color: themeColor,
-                              weight: FontWeight.bold),
-                        ],
-                      ),
-                    ),
+                    if (widget.privileges.addPrivilege)
+                      CustomAddNewButton(openUploadDialog: _openUploadDialog),
                   ],
                 ),
                 const SizedBox(
@@ -93,7 +86,7 @@ class _QuotationsPendingState extends State<QuotationsPending> {
                         DataColumn(
                           label: Expanded(
                             child: Text(
-                              'Client Name',
+                              'Customer Name',
                               style: tableHeaderStyle,
                             ),
                           ),
@@ -127,7 +120,7 @@ class _QuotationsPendingState extends State<QuotationsPending> {
                           .map(
                             (tableRow) => DataRow(cells: [
                               DataCell(
-                                Text(tableRow['clientName'].toString()),
+                                Text(tableRow['customerName'].toString()),
                               ),
                               DataCell(
                                 Text(tableRow['name'].toString()),
@@ -144,19 +137,8 @@ class _QuotationsPendingState extends State<QuotationsPending> {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(16.0),
-                      ),
-                      onPressed: _openDialog,
-                      child: const Text('View Details',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: themeColor)),
-                    ),
-                  ],
+                Center(
+                  child: CustomViewDetailsButton(openViewDialog: _openDialog),
                 ),
               ],
             ),
@@ -168,12 +150,7 @@ class _QuotationsPendingState extends State<QuotationsPending> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return CustomAlertDialogWithFilter(
-        //   'Quotations',
-        //   QuotationsPendingExpanded(tableData),
-        //   QuotationsFilter(applyFilter),
-        // );
-        return QuotationsExpandedWithFilter();
+        return QuotationsExpandedWithFilter(widget.privileges);
       },
     );
   }
@@ -183,8 +160,8 @@ class _QuotationsPendingState extends State<QuotationsPending> {
       context: context,
       builder: (BuildContext context) {
         return CustomAlertDialog(
-          'Upload Quotation Details',
-          QuotationsUpload(closeDialog),
+          title: 'Upload Quotation Details',
+          child: QuotationsUpload(closeDialog, null, widget.privileges),
         );
       },
     );

@@ -22,7 +22,7 @@ class _GratuityScreenState extends State<GratuityScreen> {
   List<Map<String, dynamic>> _gratuityType = <Map<String, dynamic>>[];
 
   getTableData() async {
-    _empDetails = await getEmpDetails();
+    _empDetails = await getGratuityEmp();
     _gratuityType = await getGratuityType();
     _gratuityDetails = await getGratuityDetails();
   }
@@ -38,6 +38,14 @@ class _GratuityScreenState extends State<GratuityScreen> {
     return FutureBuilder<dynamic>(
         future: getTableData(),
         builder: (context, AsyncSnapshot<dynamic> _data) {
+          if (_empDetails.isEmpty) {
+            return const Center(
+              child: Text(
+                "No employees have resigned currently.",
+                style: TextStyle(color: Colors.redAccent, fontSize: 16),
+              ),
+            );
+          }
           if (_data.connectionState == ConnectionState.waiting) {
             return const Center(
                 child: SizedBox(

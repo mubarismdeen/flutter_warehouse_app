@@ -18,12 +18,17 @@ class _QuotationsPendingExpandedState extends State<QuotationsPendingExpanded> {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: SingleChildScrollView(
-          child: DataTable(
+            child: GestureDetector(
+          onTap: () {
+        // Perform the action when the row is tapped
+        print('Row tapped');
+      },
+      child:DataTable(
             columns: const <DataColumn>[
               DataColumn(
                 label: Expanded(
                   child: Text(
-                    'Client Name',
+                    'Customer Name',
                     style: tableHeaderStyle,
                   ),
                 ),
@@ -161,7 +166,7 @@ class _QuotationsPendingExpandedState extends State<QuotationsPendingExpanded> {
                 .map(
                   (tableRow) => DataRow(cells: [
                     DataCell(
-                      Text(tableRow['clientName'].toString()),
+                      Text(tableRow['customerName'].toString()),
                     ),
                     DataCell(
                       Text(tableRow['name'].toString()),
@@ -217,6 +222,6 @@ class _QuotationsPendingExpandedState extends State<QuotationsPendingExpanded> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

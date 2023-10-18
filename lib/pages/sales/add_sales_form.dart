@@ -27,7 +27,7 @@ class _AddSalesFormState extends State<AddSalesForm> {
   var _anchorageRate = TextEditingController();
 
 
-  SalaryMaster _salaryMaster = SalaryMaster( id: 0, empCode: 0, salary: 0, nOtr: 0, sOtr: 0, overseas: 0, anchorage: 0, editBy: 0, editDt: DateTime.now(), creatBy: 0, creatDt:  DateTime.now());
+  SalaryMaster _salaryMaster = SalaryMaster( id: 0, empCode: '', salary: 0, nOtr: 0, sOtr: 0, overseas: 0, anchorage: 0, editBy: '', editDt: DateTime.now(), creatBy: '', creatDt:  DateTime.now());
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
@@ -42,7 +42,7 @@ class _AddSalesFormState extends State<AddSalesForm> {
       print('OverSeas Rate: $_overSeasRate');
       print('OverSeas Rate: $_anchorageRate');
     }
-    _salaryMaster.empCode = int.parse(_employeeId.text);
+    _salaryMaster.empCode = _employeeId.text;
     _salaryMaster.salary = double.parse(_preFixedMonthlySalary.text);
     _salaryMaster.nOtr = double.parse(_normalOvertimeRate.text) ;
     _salaryMaster.sOtr = double.parse(_specialOvertimeRate.text);
@@ -113,7 +113,7 @@ class _AddSalesFormState extends State<AddSalesForm> {
               },
             ),
             TextFormField(
-              decoration: InputDecoration(labelText: 'Client Name'),
+              decoration: InputDecoration(labelText: 'Customer Name'),
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value!.isEmpty) {

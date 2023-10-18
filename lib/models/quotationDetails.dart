@@ -1,7 +1,7 @@
 
 class QuotationDetails {
   int id = 0;
-  int clientId = 0;
+  int customerId = 0;
   String narration = "";
   String name = "";
   String date = "";
@@ -14,14 +14,15 @@ class QuotationDetails {
   int invStatus = 0;
   int type = 0;
   String dueDate = "";
-  int creatBy = 0;
+  String creatBy = "";
   DateTime creatDt = DateTime.now();
-  int editBy = 0;
+  String editBy = "";
   DateTime editDt = DateTime.now();
+  int status = 1;
 
   QuotationDetails({
     required this.id,
-    required this.clientId,
+    required this.customerId,
     required this.narration,
     required this.name,
     required this.date,
@@ -45,7 +46,7 @@ class QuotationDetails {
   Map<String, dynamic> toJson() =>
       {
         'id': id,
-        'clientId': clientId,
+        'customerId': customerId,
         'narration': narration,
         'name': name,
         'date': date,
@@ -62,5 +63,6 @@ class QuotationDetails {
         'creatDt':creatDt.toIso8601String(),
         'editBy':editBy,
         'editDt':editDt.toIso8601String(),
+        'status': status,
       };
 }

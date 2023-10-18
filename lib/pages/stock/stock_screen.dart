@@ -55,7 +55,7 @@ class _StockScreenState extends State<StockScreen> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return CustomAlertDialog('Add Stock', const AddStockForm(),);
+        return CustomAlertDialog(title: 'Add Stock', child: const AddStockForm(),);
       },
     );
   }

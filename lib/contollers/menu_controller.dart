@@ -7,9 +7,10 @@ import '../constants/style.dart';
 class CustomMenuController extends GetxController{
   static CustomMenuController instance = Get.find();
   var activeItem = DashboardRoute.obs;
+  // var activeItem = GlobalState.sideMenuItems.isNotEmpty ? GlobalState.sideMenuItems.first.obs : DashboardRoute.obs;
   var hoverItem = "".obs;
 
-  changeActiveitemTo(String itemName) {
+  changeActiveItemTo(String itemName) {
     activeItem.value = itemName;
   }
 
@@ -39,7 +40,7 @@ class CustomMenuController extends GetxController{
         return _customIcon(Icons.payments_outlined, itemName);
       case LeaveSalaryRoute:
         return _customIcon(Icons.account_balance_wallet_outlined, itemName);
-      case ClientsRoute:
+      case CustomersRoute:
         return _customIcon(Icons.handshake_outlined, itemName);
       case GratuityRoute:
         return _customIcon(Icons.savings_outlined, itemName);

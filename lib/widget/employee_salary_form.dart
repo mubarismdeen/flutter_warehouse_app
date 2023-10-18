@@ -1,20 +1,23 @@
 import 'package:admin/constants/style.dart';
+import 'package:admin/globalState.dart';
+import 'package:admin/models/salaryMasterGet.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../api.dart';
 import '../models/salaryMaster.dart';
+import '../utils/common_utils.dart';
 
 class EmployeeSalaryForm extends StatefulWidget {
-  const EmployeeSalaryForm({Key? key}) : super(key: key);
+  Function closeDialog;
+  SalaryMasterGet? tableRow;
+  EmployeeSalaryForm(this.closeDialog, this.tableRow, {Key? key})
+      : super(key: key);
 
   @override
   State<EmployeeSalaryForm> createState() => _EmployeeSalaryFormState();
 }
-  class _EmployeeSalaryFormState extends State<EmployeeSalaryForm> {
 
+class _EmployeeSalaryFormState extends State<EmployeeSalaryForm> {
   final _formKey = GlobalKey<FormState>();
 
   String _molIdNo = '';
@@ -26,8 +29,28 @@ class EmployeeSalaryForm extends StatefulWidget {
   var _overSeasRate = TextEditingController();
   var _anchorageRate = TextEditingController();
 
+  setValue() {
+    _salaryMaster.id = widget.tableRow!.id;
+    _employeeId.text = widget.tableRow!.empCode.toString();
+    _preFixedMonthlySalary.text = widget.tableRow!.salary.toString();
+    _normalOvertimeRate.text = widget.tableRow!.nOtr.toString();
+    _specialOvertimeRate.text = widget.tableRow!.sOtr.toString();
+    _overSeasRate.text = widget.tableRow!.overseas.toString();
+    _anchorageRate.text = widget.tableRow!.anchorage.toString();
+  }
 
-   SalaryMaster _salaryMaster = SalaryMaster( id: 0, empCode: 0, salary: 0, nOtr: 0, sOtr: 0, overseas: 0, anchorage: 0, editBy: 0, editDt: DateTime.now(), creatBy: 0, creatDt:  DateTime.now());
+  SalaryMaster _salaryMaster = SalaryMaster(
+      id: 0,
+      empCode: '',
+      salary: 0,
+      nOtr: 0,
+      sOtr: 0,
+      overseas: 0,
+      anchorage: 0,
+      editBy: GlobalState.userEmpCode,
+      editDt: DateTime.now(),
+      creatBy: GlobalState.userEmpCode,
+      creatDt: DateTime.now());
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
@@ -42,27 +65,17 @@ class EmployeeSalaryForm extends StatefulWidget {
       print('OverSeas Rate: $_overSeasRate');
       print('OverSeas Rate: $_anchorageRate');
     }
-    _salaryMaster.empCode = int.parse(_employeeId.text);
+    _salaryMaster.empCode = _employeeId.text;
     _salaryMaster.salary = double.parse(_preFixedMonthlySalary.text);
-    _salaryMaster.nOtr = double.parse(_normalOvertimeRate.text) ;
+    _salaryMaster.nOtr = double.parse(_normalOvertimeRate.text);
     _salaryMaster.sOtr = double.parse(_specialOvertimeRate.text);
     _salaryMaster.overseas = double.parse(_overSeasRate.text);
     _salaryMaster.anchorage = double.parse(_anchorageRate.text);
 
     bool status = await saveSalaryMaster(_salaryMaster);
-    if( status){
-      Fluttertoast.showToast(
-          msg: "Saved",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
-          webPosition :"center",
-          webShowClose :false,
-      );
-    _employeeId.clear();
+    if (status) {
+      showSaveSuccessfulMessage(context);
+      _employeeId.clear();
 
       _molIdNo = '';
 
@@ -76,27 +89,68 @@ class EmployeeSalaryForm extends StatefulWidget {
 
       _anchorageRate.clear();
 
-      setState(() {  });
-       // _salaryMaster = SalaryMaster as SalaryMaster;
-    }else{
-      Get.showSnackbar(
-        const GetSnackBar(
-          title: "failed to save",
-          message: '',
-          icon: Icon(Icons.refresh),
-          duration: Duration(seconds: 3),
+      setState(() {});
+      widget.closeDialog();
+      Navigator.pop(context);
+    } else {
+      showSaveFailedMessage(context);
+    }
+  }
+
+  Future<void> _onDelete() async {
+    bool status = await deleteSalaryMaster(_salaryMaster.id);
+    if (status) {
+      showSaveSuccessfulMessage(context);
+      Navigator.pop(context);
+      widget.closeDialog();
+      setState(() {});
+    } else {
+      showSaveFailedMessage(context);
+    }
+  }
+
+  List<Widget> _getActionButtons() {
+    List<Widget> widgetList = [
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: themeColor,
+        ),
+        onPressed: _submitForm,
+        child: const Text('Submit'),
+      ),
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: themeColor,
+        ),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: const Text('Cancel'),
+      ),
+    ];
+    if (widget.tableRow != null) {
+      widgetList.add(
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: themeColor,
+          ),
+          onPressed: _onDelete,
+          child: const Text('Delete'),
         ),
       );
     }
+    return widgetList;
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.tableRow != null) {
+      setValue();
+    }
     return Form(
       key: _formKey,
       child: SingleChildScrollView(
         child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
@@ -112,31 +166,20 @@ class EmployeeSalaryForm extends StatefulWidget {
                 // _employeeId = int.parse(value!);
               },
             ),
-            // TextFormField(
-            //   decoration: InputDecoration(labelText: 'MOL ID No'),
-            //   validator: (value) {
-            //     if (value!.isEmpty) {
-            //       return 'Please enter MOL ID No';
-            //     }
-            //     return null;
-            //   },
-            //   onSaved: (value) {
-            //     _molIdNo = value!;
-            //   },
-            // ),
             TextFormField(
-              decoration: InputDecoration(labelText: 'Pre-Fixed Monthly Salary'),
+              decoration:
+                  InputDecoration(labelText: 'Pre-Fixed Monthly Salary'),
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Please enter pre-fixed monthly salary';
                 }
-                if (int.tryParse(value) == null) {
+                if (double.tryParse(value) == null) {
                   return 'Please enter a valid number';
                 }
                 return null;
               },
-                controller:_preFixedMonthlySalary,
+              controller: _preFixedMonthlySalary,
               onSaved: (value) {
                 // _preFixedMonthlySalary = double.parse(value!);
               },
@@ -148,12 +191,12 @@ class EmployeeSalaryForm extends StatefulWidget {
                 if (value!.isEmpty) {
                   return 'Please enter Normal Overtime Rate';
                 }
-                if (int.tryParse(value) == null) {
+                if (double.tryParse(value) == null) {
                   return 'Please enter a valid number';
                 }
                 return null;
               },
-              controller:_normalOvertimeRate ,
+              controller: _normalOvertimeRate,
               onSaved: (value) {
                 // _normalOvertimeRate = double.parse(value!);
               },
@@ -165,12 +208,12 @@ class EmployeeSalaryForm extends StatefulWidget {
                 if (value!.isEmpty) {
                   return 'Please enter Special Overtime Rate';
                 }
-                if (int.tryParse(value) == null) {
+                if (double.tryParse(value) == null) {
                   return 'Please enter a valid number';
                 }
                 return null;
               },
-              controller:_specialOvertimeRate ,
+              controller: _specialOvertimeRate,
               onSaved: (value) {
                 // _specialOvertimeRate = double.parse(value!);
               },
@@ -213,22 +256,7 @@ class EmployeeSalaryForm extends StatefulWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: themeColor,
-                  ),
-                  onPressed: _submitForm,
-                  child: Text('Submit'),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: themeColor,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Cancel'),
-                ),
+                ..._getActionButtons(),
               ],
             ),
           ],

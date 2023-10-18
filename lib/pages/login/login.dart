@@ -1,4 +1,7 @@
 import 'package:admin/constants/style.dart';
+import 'package:admin/globalState.dart';
+import 'package:admin/models/userScreens.dart';
+import 'package:admin/utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -20,9 +23,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> with RestorationMixin {
   final RestorableTextEditingController _usernameController =
-  RestorableTextEditingController();
+      RestorableTextEditingController();
   final RestorableTextEditingController _passwordController =
-  RestorableTextEditingController();
+      RestorableTextEditingController();
 
   @override
   String get restorationId => 'login_page';
@@ -101,8 +104,32 @@ class _MainViewState extends State<_MainView> {
             setState(() {
               showLoading = true;
             });
-            logStatus1 = await localUserValidation(widget.usernameController!.text,
-                widget.passwordController!.text);
+
+            List<UserScreens> screensForUser = [];
+            try {
+              screensForUser = await authorizeUser(
+                widget.usernameController!.text,
+                widget.passwordController!.text,
+              );
+            } catch (ex) {
+              setState(() {
+                showError = false;
+              });
+              showSaveFailedMessage(context, "Error in establishing connection with the server");
+            }
+
+            if (screensForUser.isNotEmpty) {
+              logStatus1 = true;
+              GlobalState.setScreensForUser(widget.usernameController!.text, screensForUser.first);
+            }
+            // logStatus1 = await localUserValidation(
+            //   widget.usernameController!.text,
+            //   widget.passwordController!.text,
+            // );
+            // if (logStatus1) {
+            //   GlobalState.setScreensForLocalValidation();
+            // }
+
             if (logStatus1) {
               showError = false;
               setState(() {
@@ -145,22 +172,21 @@ class _MainViewState extends State<_MainView> {
             alignment: isDesktop ? Alignment.center : Alignment.topCenter,
             child: showLoading
                 ? const SpinKitWave(
-              color: Colors.white,
-              size: 30,
-            )
+                    color: Colors.white,
+                    size: 30,
+                  )
                 : ListView(
-              restorationId: 'login_list_view',
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              children: listViewChildren,
-            ),
+                    restorationId: 'login_list_view',
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    children: listViewChildren,
+                  ),
           ),
         ),
       ],
     );
   }
 }
-
 
 class _AppLogo extends StatelessWidget {
   const _AppLogo();
@@ -235,10 +261,10 @@ class InputBox extends StatelessWidget {
 
   InputBox(
       {Key? key,
-        this.maxWidth,
-        required this.displayText,
-        required this.obscureText,
-        this.controller})
+      this.maxWidth,
+      required this.displayText,
+      required this.obscureText,
+      this.controller})
       : super(key: key);
 
   @override
@@ -374,7 +400,7 @@ class _LoginButtonState extends State<_LoginButton> {
       alignment: Alignment.center,
       child: Container(
         constraints:
-        BoxConstraints(maxWidth: widget.maxWidth ?? double.infinity),
+            BoxConstraints(maxWidth: widget.maxWidth ?? double.infinity),
         padding: const EdgeInsets.symmetric(vertical: 30),
         child: Row(
           children: [
@@ -384,9 +410,9 @@ class _LoginButtonState extends State<_LoginButton> {
             widget.status ? const SizedBox(width: 12) : Container(),
             widget.status
                 ? const Text(
-              "user name or password is wrong",
-              style: TextStyle(color: Colors.white),
-            )
+                    "username or password is wrong",
+                    style: TextStyle(color: Colors.white),
+                  )
                 : Container(),
             const Expanded(child: SizedBox.shrink()),
             _FilledButton(
@@ -399,7 +425,6 @@ class _LoginButtonState extends State<_LoginButton> {
     );
   }
 }
-
 
 class _FilledButton extends StatelessWidget {
   const _FilledButton({required this.text, required this.onTap});

@@ -1,5 +1,6 @@
 class EmployeeDetails {
-  int empCode = 0;
+  int id = 0;
+  String empCode = '';
   String name = '';
   String mobile1 = '';
   String mobile2 = '';
@@ -14,6 +15,7 @@ class EmployeeDetails {
   DateTime createDt = DateTime.now();
 
   EmployeeDetails({
+    required this.id,
     required this.empCode,
     required this.name,
     required this.mobile1,
@@ -30,7 +32,8 @@ class EmployeeDetails {
   });
 
   EmployeeDetails.fromJson(Map<String, dynamic> json) {
-    empCode = json['empCode']??0;
+    id = json['id']>>0;
+    empCode = json['empCode']??'';
     name = json['name']??'';
     mobile1 = json['mobile1']??'';
     mobile2 = json['mobile2']??'';

@@ -1,7 +1,7 @@
 class SalesDetails {
   int id = 0;
   int saleId = 0;
-  String clientName = '';
+  String customerName = '';
   String type = '';
   String unit = '';
   double amount = 0;
@@ -18,7 +18,7 @@ class SalesDetails {
 
   SalesDetails({
     required this.saleId,
-    required this.clientName,
+    required this.customerName,
     required this.amount,
     required this.tax,
     required this.saleDt,
@@ -27,7 +27,7 @@ class SalesDetails {
   SalesDetails.fromJson(Map<String, dynamic> json) {
     id= json['id'] ?? 0;
     saleId = json['empCode']??0;
-    clientName = json['name']??'';
+    customerName = json['name']??'';
     amount = json['salary']??0.0;
     tax = json['novt']??0.0;
     value = json['sovt']??0.0;

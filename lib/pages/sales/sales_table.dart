@@ -12,9 +12,9 @@ class SalesTable extends StatefulWidget {
 class _SalesTableState extends State<SalesTable> {
   // List<StockDetails> _stockDetails = List<StockDetails>.empty();
   List<SalesDetails> _salesDetails = [
-    SalesDetails(saleId: 1, clientName: 'ABC Mart', amount: 100, tax: 10, saleDt: DateTime.now()),
-    SalesDetails(saleId: 2, clientName: 'DEF Pharma', amount: 200, tax: 20, saleDt: DateTime.now()),
-    SalesDetails(saleId: 3, clientName: 'GHI Store', amount: 300, tax: 30, saleDt: DateTime.now()),
+    SalesDetails(saleId: 1, customerName: 'ABC Mart', amount: 100, tax: 10, saleDt: DateTime.now()),
+    SalesDetails(saleId: 2, customerName: 'DEF Pharma', amount: 200, tax: 20, saleDt: DateTime.now()),
+    SalesDetails(saleId: 3, customerName: 'GHI Store', amount: 300, tax: 30, saleDt: DateTime.now()),
   ];
 
   getData() async {
@@ -53,7 +53,7 @@ class _SalesTableState extends State<SalesTable> {
                           DataColumn(
                             label: Expanded(
                               child: Text(
-                                'Client\nName',
+                                'Customer\nName',
                                 style: tableHeaderStyle,
                               ),
                             ),
@@ -86,7 +86,7 @@ class _SalesTableState extends State<SalesTable> {
                         rows: _salesDetails
                             .map((sale) => DataRow(cells: [
                           DataCell(Text(sale.saleId.toString())),
-                          DataCell(Text(sale.clientName)),
+                          DataCell(Text(sale.customerName)),
                           DataCell(Text(sale.amount.toString())),
                           DataCell(Text(sale.tax.toString())),
                           DataCell(Text(DateFormat('yyyy-MM-dd').format(sale.saleDt))),
