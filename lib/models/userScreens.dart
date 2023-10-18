@@ -9,7 +9,7 @@ class UserScreens {
   bool salaryMaster = false;
   bool salaryPayout = false;
   bool leaveSalary = false;
-  bool clients = false;
+  bool customers = false;
   bool gratuity = false;
   String editBy = '';
   DateTime editDt = DateTime.now();
@@ -29,7 +29,7 @@ class UserScreens {
     salaryMaster =  json['salaryMaster']??false;
     salaryPayout =  json['salaryPayout']??false;
     leaveSalary =  json['leaveSalary']??false;
-    clients =  json['clients']??false;
+    customers =  json['customers']??false;
     gratuity =  json['gratuity']??false;
     editBy = json['editBy']??'';
     editDt = DateTime.parse(json['editDate']);
@@ -48,7 +48,7 @@ class UserScreens {
     'salaryMaster': salaryMaster,
     'salaryPayout': salaryPayout,
     'leaveSalary': leaveSalary,
-    'clients': clients,
+    'customers': customers,
     'gratuity': gratuity,
     'editBy': editBy,
     'editDt': editDt.toIso8601String(),

@@ -113,7 +113,7 @@ class _AddSalesFormState extends State<AddSalesForm> {
               },
             ),
             TextFormField(
-              decoration: InputDecoration(labelText: 'Client Name'),
+              decoration: InputDecoration(labelText: 'Customer Name'),
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value!.isEmpty) {

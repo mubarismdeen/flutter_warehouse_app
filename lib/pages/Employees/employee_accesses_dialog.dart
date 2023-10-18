@@ -65,7 +65,7 @@ class _EmployeeAccessesDialogState extends State<EmployeeAccessesDialog> {
     if (_userScreens.salaryMaster) _selectedScreens.add(Screen.salaryMaster);
     if (_userScreens.salaryPayout) _selectedScreens.add(Screen.salaryPayout);
     if (_userScreens.leaveSalary) _selectedScreens.add(Screen.leaveSalary);
-    if (_userScreens.clients) _selectedScreens.add(Screen.clients);
+    if (_userScreens.customers) _selectedScreens.add(Screen.customers);
     if (_userScreens.gratuity) _selectedScreens.add(Screen.gratuity);
     _privilegesList = widget.userPrivilegesList;
     for (UserPrivileges priv in _privilegesList) {
@@ -263,8 +263,8 @@ class _EmployeeAccessesDialogState extends State<EmployeeAccessesDialog> {
       case Screen.leaveSalary:
         _userScreens.leaveSalary = !_userScreens.leaveSalary;
         break;
-      case Screen.clients:
-        _userScreens.clients = !_userScreens.clients;
+      case Screen.customers:
+        _userScreens.customers = !_userScreens.customers;
         break;
       case Screen.gratuity:
         _userScreens.gratuity = !_userScreens.gratuity;

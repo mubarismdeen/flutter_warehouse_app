@@ -1,7 +1,7 @@
 
 class QuotationDetails {
   int id = 0;
-  int clientId = 0;
+  int customerId = 0;
   String narration = "";
   String name = "";
   String date = "";
@@ -22,7 +22,7 @@ class QuotationDetails {
 
   QuotationDetails({
     required this.id,
-    required this.clientId,
+    required this.customerId,
     required this.narration,
     required this.name,
     required this.date,
@@ -46,7 +46,7 @@ class QuotationDetails {
   Map<String, dynamic> toJson() =>
       {
         'id': id,
-        'clientId': clientId,
+        'customerId': customerId,
         'narration': narration,
         'name': name,
         'date': date,

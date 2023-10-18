@@ -5,7 +5,7 @@ enum Screen {
   salaryMaster,
   salaryPayout,
   leaveSalary,
-  clients,
+  customers,
   gratuity,
 }
 
@@ -24,8 +24,8 @@ extension ScreenExtension on Screen {
         return "Salary Payout";
       case Screen.leaveSalary:
         return "Leave Salary";
-      case Screen.clients:
-        return "Clients";
+      case Screen.customers:
+        return "Customers";
       case Screen.gratuity:
         return "Gratuity";
     }

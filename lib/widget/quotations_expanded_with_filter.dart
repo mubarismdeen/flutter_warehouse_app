@@ -22,21 +22,21 @@ class _QuotationsExpandedWithFilterState
     extends State<QuotationsExpandedWithFilter> {
   List<Map<String, dynamic>> tableData = <Map<String, String>>[];
 
-  String _selectedClientName = '';
+  String _selectedCustomerName = '';
   String _selectedName = '';
   String _selectedPoStatus = '';
   String _selectedInvoiceStatus = '';
   String _selectedType = '';
 
   getTableData() async {
-    tableData = await getQuotationDetails(_selectedClientName, _selectedName,
+    tableData = await getQuotationDetails(_selectedCustomerName, _selectedName,
         _selectedPoStatus, _selectedInvoiceStatus, _selectedType);
   }
 
-  applyFilter(String clientName, String name, String poStatus,
+  applyFilter(String customerName, String name, String poStatus,
       String invoiceStatus, String type) {
     setState(() {
-      _selectedClientName = clientName;
+      _selectedCustomerName = customerName;
       _selectedName = name;
       _selectedPoStatus = poStatus;
       _selectedInvoiceStatus = invoiceStatus;
@@ -92,7 +92,7 @@ class _QuotationsExpandedWithFilterState
                         DataColumn(
                           label: Expanded(
                             child: Text(
-                              'Client Name',
+                              'Customer Name',
                               style: tableHeaderStyle,
                             ),
                           ),
@@ -231,7 +231,7 @@ class _QuotationsExpandedWithFilterState
                             (tableRow) => DataRow(
                               cells: [
                                 DataCell(
-                                  Text(tableRow['clientName'].toString()),
+                                  Text(tableRow['customerName'].toString()),
                                 ),
                                 DataCell(
                                   Text(tableRow['name'].toString()),

@@ -76,7 +76,7 @@ class _JobDetailsUploadState extends State<JobDetailsUpload> {
       _formKey.currentState?.save();
       // Submit the form data to a backend API or do something else with it
       print('Submitted form data:');
-      print('Client Name: $_jobName');
+      print('Customer Name: $_jobName');
       print('Name: $_assignedDate');
       print('Narration: $_narration');
       print('PO Status: $_selectedAssignedTo');
@@ -139,7 +139,7 @@ class _JobDetailsUploadState extends State<JobDetailsUpload> {
                       decoration: const InputDecoration(labelText: 'Job'),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please enter client name';
+                          return 'Please enter customer name';
                         }
                         return null;
                       },

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:admin/models/clientDetails.dart';
+import 'package:admin/models/customerDetails.dart';
 import 'package:admin/models/employeeDetails.dart';
 import 'package:admin/models/jobDetails.dart';
 import 'package:admin/models/leaveSalary.dart';
@@ -165,8 +165,8 @@ Future<List<Map<String, dynamic>>> getInvoiceStatus() async {
   return list;
 }
 
-Future<List<Map<String, dynamic>>> getQuotationDetails(String clientName, String name, String poStatus, String invStatus, String type) async {
-  String urlWithParams = "http://$ip/Hrms/getQuotationDetails?clientName=$clientName&name=$name&poStatus=$poStatus&invStatus=$invStatus&type=$type";
+Future<List<Map<String, dynamic>>> getQuotationDetails(String customerName, String name, String poStatus, String invStatus, String type) async {
+  String urlWithParams = "http://$ip/Hrms/getQuotationDetails?customerName=$customerName&name=$name&poStatus=$poStatus&invStatus=$invStatus&type=$type";
   List<Map<String, dynamic>> list = (await httpConnect(urlWithParams, HttpMethod.GET) as List)
       .map((dynamic e) => e as Map<String, dynamic>).toList();
   return list;
@@ -345,21 +345,21 @@ Future<List<Map<String, dynamic>>> getGratuityType() async {
   return list;
 }
 
-Future<List<ClientDetails>> getClientDetails() async {
-  String urlWithParams = "http://$ip/Hrms/getClientDetails";
-  List<ClientDetails> list = (await httpConnect(urlWithParams, HttpMethod.GET))
-      .map((job) => ClientDetails.fromJson(job)).cast<ClientDetails>().toList();
+Future<List<CustomerDetails>> getCustomerDetails() async {
+  String urlWithParams = "http://$ip/Hrms/getCustomerDetails";
+  List<CustomerDetails> list = (await httpConnect(urlWithParams, HttpMethod.GET))
+      .map((job) => CustomerDetails.fromJson(job)).cast<CustomerDetails>().toList();
   return list;
 }
 
-Future<bool> saveClientDetails(ClientDetails clientDetails) async {
-  String urlWithParams = "http://$ip/Hrms/saveClientDetails";
-  var jsonData = jsonEncode(clientDetails);
+Future<bool> saveCustomerDetails(CustomerDetails customerDetails) async {
+  String urlWithParams = "http://$ip/Hrms/saveCustomerDetails";
+  var jsonData = jsonEncode(customerDetails);
   return await httpConnect(urlWithParams, HttpMethod.POST, jsonData) as bool;
 }
 
-Future<bool> deleteClientDetails(int clientId) async {
-  String urlWithParams = "http://$ip/Hrms/DeleteClientDetails?id=$clientId";
+Future<bool> deleteCustomerDetails(int customerId) async {
+  String urlWithParams = "http://$ip/Hrms/DeleteCustomerDetails?id=$customerId";
   return await httpConnect(urlWithParams, HttpMethod.GET) as bool;
 }
 

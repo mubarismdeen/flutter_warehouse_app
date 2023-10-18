@@ -1,13 +1,13 @@
 const String documentDetailsScreenPrivilege = "documentDetailsScreen";
 const String quotationDetailsScreenPrivilege = "quotationDetailsScreen";
 const String jobDetailsScreenPrivilege = "jobDetailsScreen";
-const String clientDetailsScreenPrivilege = "clientDetailsScreen";
+const String customerDetailsScreenPrivilege = "customerDetailsScreen";
 
 enum Privilege {
   documentDetails,
   quotationDetails,
   jobDetails,
-  clientDetails,
+  customerDetails,
 }
 
 extension ValueExtension on Privilege {
@@ -19,8 +19,8 @@ extension ValueExtension on Privilege {
         return "Quotation Details";
       case Privilege.jobDetails:
         return "Job Details";
-      case Privilege.clientDetails:
-        return "Client Details";
+      case Privilege.customerDetails:
+        return "Customer Details";
     }
   }
 }
@@ -34,8 +34,8 @@ extension NameExtension on Privilege {
         return quotationDetailsScreenPrivilege;
       case Privilege.jobDetails:
         return jobDetailsScreenPrivilege;
-      case Privilege.clientDetails:
-        return clientDetailsScreenPrivilege;
+      case Privilege.customerDetails:
+        return customerDetailsScreenPrivilege;
     }
   }
 }

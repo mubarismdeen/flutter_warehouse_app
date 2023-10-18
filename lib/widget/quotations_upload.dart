@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../api.dart';
-import '../models/clientDetails.dart';
+import '../models/customerDetails.dart';
 import '../utils/common_utils.dart';
 
 class QuotationsUpload extends StatefulWidget {
@@ -33,8 +33,8 @@ class _QuotationsUploadState extends State<QuotationsUpload> {
   late Map<String, dynamic> _selectedInvStatus;
   late Map<String, dynamic> _selectedPoStatus;
   late Map<String, dynamic> _selectedType;
-  late ClientDetails _selectedClient;
-  String? _clientName;
+  late CustomerDetails _selectedCustomer;
+  String? _customerName;
   String? _type;
   String? _invStatus;
   String? _poStatus;
@@ -42,13 +42,13 @@ class _QuotationsUploadState extends State<QuotationsUpload> {
   List<Map<String, dynamic>> invoiceStatuses = <Map<String, dynamic>>[];
   List<Map<String, dynamic>> poStatuses = <Map<String, dynamic>>[];
   List<Map<String, dynamic>> types = <Map<String, dynamic>>[];
-  List<ClientDetails> clients = <ClientDetails>[];
+  List<CustomerDetails> customers = <CustomerDetails>[];
 
   getDropdownInputs() async {
     invoiceStatuses = await getInvoiceStatus();
     poStatuses = await getPoStatus();
     types = await getQuotationType();
-    clients = await getClientDetails();
+    customers = await getCustomerDetails();
     if (widget.tableRow != null) {
       setValue();
     }
@@ -67,20 +67,20 @@ class _QuotationsUploadState extends State<QuotationsUpload> {
     _invStatus = widget.tableRow!['invStatus'];
     _poStatus = widget.tableRow!['poStatus'];
     _type = widget.tableRow!['type'];
-    _clientName = widget.tableRow!['clientName'];
+    _customerName = widget.tableRow!['customerName'];
 
     _selectedInvStatus = invoiceStatuses
         .firstWhere((invStatus) => invStatus['description'] == _invStatus);
     _selectedPoStatus = poStatuses
         .firstWhere((poStatus) => poStatus['description'] == _poStatus);
     _selectedType = types.firstWhere((type) => type['description'] == _type);
-    _selectedClient =
-        clients.firstWhere((client) => client.name == _clientName);
+    _selectedCustomer =
+        customers.firstWhere((customer) => customer.name == _customerName);
   }
 
   QuotationDetails _quotationDetails = QuotationDetails(
       id: 0,
-      clientId: 0,
+      customerId: 0,
       narration: "",
       name: "",
       date: DateFormat('yyyy-MM-dd').format(DateTime.now()),
@@ -103,7 +103,7 @@ class _QuotationsUploadState extends State<QuotationsUpload> {
       _formKey.currentState?.save();
       // Submit the form data to a backend API or do something else with it
       print('Submitted form data:');
-      print('Client Name: ${_selectedClient.id}');
+      print('Customer Name: ${_selectedCustomer.id}');
       print('Name: $_name');
       print('Narration: $_narration');
       print('Invoice No: $_invocieNo');
@@ -112,7 +112,7 @@ class _QuotationsUploadState extends State<QuotationsUpload> {
       print('Type: ${_selectedType['id']}');
       print('Due Date: $_dueDate');
     }
-    _quotationDetails.clientId = _selectedClient.id;
+    _quotationDetails.customerId = _selectedCustomer.id;
     _quotationDetails.name = _name.text;
     _quotationDetails.narration = _narration.text;
     _quotationDetails.invoiceNo = int.parse(_invocieNo.text);
@@ -171,25 +171,25 @@ class _QuotationsUploadState extends State<QuotationsUpload> {
                     DropdownButtonFormField(
                       validator: (value) {
                         if (value == null) {
-                          return 'Please select client';
+                          return 'Please select customer';
                         }
                         return null;
                       },
-                      decoration: const InputDecoration(labelText: 'Client'),
-                      items: clients.map<DropdownMenuItem<String>>(
-                          (ClientDetails client) {
+                      decoration: const InputDecoration(labelText: 'Customer'),
+                      items: customers.map<DropdownMenuItem<String>>(
+                          (CustomerDetails customer) {
                         return DropdownMenuItem<String>(
-                          value: client.name,
-                          child: Text(client.name),
+                          value: customer.name,
+                          child: Text(customer.name),
                         );
                       }).toList(),
                       onChanged: (String? value) {
-                        _selectedClient = clients
-                            .firstWhere((client) => client.name == value);
+                        _selectedCustomer = customers
+                            .firstWhere((customer) => customer.name == value);
                         //   setState(() {
                         // });
                       },
-                      value: _clientName,
+                      value: _customerName,
                     ),
                     TextFormField(
                       decoration: const InputDecoration(labelText: 'vessel'),

@@ -6,7 +6,7 @@ const SalaryMasterRoute = "Salary Master";
 const SalaryPayoutRoute = "Salary Payout";
 const LeaveSalaryRoute = "Leave Salary";
 const AttendanceRoute = "Attendance";
-const ClientsRoute = "Clients";
+const CustomersRoute = "Customers";
 const GratuityRoute = "Gratuity";
 const AuthenticationPageRoute = "Authentication";
 
@@ -15,7 +15,7 @@ List allSideMenuItems =[
   DashboardRoute,
   StockRoute,
   SalesRoute,
-  ClientsRoute,
+  CustomersRoute,
   EmployeesRoute,
   AttendanceRoute,
   SalaryMasterRoute,

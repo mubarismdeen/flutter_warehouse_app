@@ -1,17 +1,17 @@
 import 'package:admin/constants/style.dart';
-import 'package:admin/models/clientDetails.dart';
+import 'package:admin/models/customerDetails.dart';
 import 'package:admin/utils/common_utils.dart';
 import 'package:flutter/material.dart';
 
-class ClientDetailsWidget extends StatefulWidget {
-  List<ClientDetails> clientDetails;
-  ClientDetailsWidget(this.clientDetails);
+class CustomerDetailsWidget extends StatefulWidget {
+  List<CustomerDetails> customerDetails;
+  CustomerDetailsWidget(this.customerDetails);
 
   @override
-  _ClientDetailsWidgetState createState() => _ClientDetailsWidgetState();
+  _CustomerDetailsWidgetState createState() => _CustomerDetailsWidgetState();
 }
 
-class _ClientDetailsWidgetState extends State<ClientDetailsWidget> {
+class _CustomerDetailsWidgetState extends State<CustomerDetailsWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,7 +34,7 @@ class _ClientDetailsWidgetState extends State<ClientDetailsWidget> {
                       DataColumn(
                         label: Expanded(
                           child: Text(
-                            'Client Name',
+                            'Customer Name',
                             style: tableHeaderStyle,
                           ),
                         ),
@@ -80,15 +80,15 @@ class _ClientDetailsWidgetState extends State<ClientDetailsWidget> {
                         ),
                       ),
                     ],
-                    rows: widget.clientDetails
-                        .map((client) => DataRow(cells: [
-                              DataCell(Text(client.name)),
-                              DataCell(Text(client.address)),
-                              DataCell(Text(client.mobile1)),
-                              DataCell(Text(client.mobile2)),
-                              DataCell(Text(client.creatBy)),
+                    rows: widget.customerDetails
+                        .map((customer) => DataRow(cells: [
+                              DataCell(Text(customer.name)),
+                              DataCell(Text(customer.address)),
+                              DataCell(Text(customer.mobile1)),
+                              DataCell(Text(customer.mobile2)),
+                              DataCell(Text(customer.creatBy)),
                               DataCell(Text(
-                                  getDateStringFromDateTime(client.creatDt))),
+                                  getDateStringFromDateTime(customer.creatDt))),
                             ]))
                         .toList(),
                   ),

@@ -28,7 +28,7 @@ class _QuotationsPendingExpandedState extends State<QuotationsPendingExpanded> {
               DataColumn(
                 label: Expanded(
                   child: Text(
-                    'Client Name',
+                    'Customer Name',
                     style: tableHeaderStyle,
                   ),
                 ),
@@ -166,7 +166,7 @@ class _QuotationsPendingExpandedState extends State<QuotationsPendingExpanded> {
                 .map(
                   (tableRow) => DataRow(cells: [
                     DataCell(
-                      Text(tableRow['clientName'].toString()),
+                      Text(tableRow['customerName'].toString()),
                     ),
                     DataCell(
                       Text(tableRow['name'].toString()),

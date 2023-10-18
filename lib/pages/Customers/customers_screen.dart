@@ -1,7 +1,7 @@
 import 'package:admin/api.dart';
 import 'package:admin/constants/style.dart';
-import 'package:admin/models/clientDetails.dart';
-import 'package:admin/widget/client_details_form.dart';
+import 'package:admin/models/customerDetails.dart';
+import 'package:admin/widget/customer_details_form.dart';
 import 'package:admin/widget/custom_alert_dialog.dart';
 import 'package:admin/widget/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -14,23 +14,23 @@ import '../../helpers/responsiveness.dart';
 import '../../models/userPrivileges.dart';
 import '../../utils/common_utils.dart';
 
-class ClientsScreen extends StatefulWidget {
-  const ClientsScreen({Key? key}) : super(key: key);
+class CustomersScreen extends StatefulWidget {
+  const CustomersScreen({Key? key}) : super(key: key);
 
   @override
-  State<ClientsScreen> createState() => _ClientsScreenState();
+  State<CustomersScreen> createState() => _CustomersScreenState();
 }
 
-class _ClientsScreenState extends State<ClientsScreen> {
-  List<ClientDetails> _clientDetails = List<ClientDetails>.empty();
+class _CustomersScreenState extends State<CustomersScreen> {
+  List<CustomerDetails> _customerDetails = List<CustomerDetails>.empty();
   UserPrivileges privileges = UserPrivileges(userId: 0, privilegeName: "", creatBy: "", creatDt: DateTime.now());
 
   getTableData() async {
-    _clientDetails = await getClientDetails();
-    List<UserPrivileges> clientScreenPrivileges = await getAPrivilegeForUser(
-        GlobalState.username, clientDetailsScreenPrivilege);
-    if (clientScreenPrivileges.isNotEmpty) {
-      privileges = clientScreenPrivileges.first;
+    _customerDetails = await getCustomerDetails();
+    List<UserPrivileges> customerScreenPrivileges = await getAPrivilegeForUser(
+        GlobalState.username, customerDetailsScreenPrivilege);
+    if (customerScreenPrivileges.isNotEmpty) {
+      privileges = customerScreenPrivileges.first;
     }
   }
 
@@ -74,7 +74,6 @@ class _ClientsScreenState extends State<ClientsScreen> {
                     ),
                   ],
                 ),
-              // ClientDetailsWidget(_clientDetails),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: ConstrainedBox(
@@ -96,7 +95,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
                                 DataColumn(
                                   label: Expanded(
                                     child: Text(
-                                      'Client Name',
+                                      'Customer Name',
                                       style: tableHeaderStyle,
                                     ),
                                   ),
@@ -142,24 +141,24 @@ class _ClientsScreenState extends State<ClientsScreen> {
                                   ),
                                 ),
                               ],
-                              rows: _clientDetails
-                                  .map((client) => DataRow(
+                              rows: _customerDetails
+                                  .map((customer) => DataRow(
                                           cells: [
-                                            DataCell(Text(client.name)),
-                                            DataCell(Text(client.address)),
-                                            DataCell(Text(client.mobile1)),
-                                            DataCell(Text(client.mobile2)),
+                                            DataCell(Text(customer.name)),
+                                            DataCell(Text(customer.address)),
+                                            DataCell(Text(customer.mobile1)),
+                                            DataCell(Text(customer.mobile2)),
                                             DataCell(Text(
-                                                client.creatBy)),
+                                                customer.creatBy)),
                                             DataCell(Text(
                                                 getDateStringFromDateTime(
-                                                    client.creatDt))),
+                                                    customer.creatDt))),
                                           ],
                                           onSelectChanged: (selected) {
                                             if (selected != null && selected &&
                                                 (privileges.editPrivilege ||
                                                     privileges.deletePrivilege)) {
-                                              _openDialog(client, privileges);
+                                              _openDialog(customer, privileges);
                                             }
                                           }))
                                   .toList(),
@@ -176,13 +175,13 @@ class _ClientsScreenState extends State<ClientsScreen> {
         });
   }
 
-  void _openDialog(ClientDetails? tableRow, UserPrivileges privileges) {
+  void _openDialog(CustomerDetails? tableRow, UserPrivileges privileges) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return CustomAlertDialog(
-            title: 'Add New Client',
-            child: ClientDetailsForm(closeDialog, tableRow, privileges),
+            title: 'Add New Customer',
+            child: CustomerDetailsForm(closeDialog, tableRow, privileges),
         );
       },
     );
@@ -195,7 +194,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
         backgroundColor: themeColor,
       ),
       onPressed: () => _openDialog(null, privileges),
-      child: const Text('Add Client',
+      child: const Text('Add Customer',
           style: TextStyle(fontWeight: FontWeight.bold)),
     );
   }

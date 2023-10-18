@@ -1,25 +1,25 @@
 import 'package:admin/globalState.dart';
-import 'package:admin/models/clientDetails.dart';
+import 'package:admin/models/customerDetails.dart';
 import 'package:admin/models/userPrivileges.dart';
 import 'package:flutter/material.dart';
 
 import '../api.dart';
 import '../utils/common_utils.dart';
 
-class ClientDetailsForm extends StatefulWidget {
+class CustomerDetailsForm extends StatefulWidget {
   dynamic closeDialog;
-  ClientDetails? tableRow;
+  CustomerDetails? tableRow;
   UserPrivileges privileges;
 
-  ClientDetailsForm(this.closeDialog, this.tableRow, this.privileges,
+  CustomerDetailsForm(this.closeDialog, this.tableRow, this.privileges,
       {Key? key})
       : super(key: key);
 
   @override
-  State<ClientDetailsForm> createState() => _ClientDetailsFormState();
+  State<CustomerDetailsForm> createState() => _CustomerDetailsFormState();
 }
 
-class _ClientDetailsFormState extends State<ClientDetailsForm> {
+class _CustomerDetailsFormState extends State<CustomerDetailsForm> {
   final _formKey = GlobalKey<FormState>();
 
   var _address = TextEditingController();
@@ -28,14 +28,14 @@ class _ClientDetailsFormState extends State<ClientDetailsForm> {
   var _mobile2 = TextEditingController();
 
   setValue() {
-    _clientDetails.id = widget.tableRow!.id;
+    _customerDetails.id = widget.tableRow!.id;
     _name.text = widget.tableRow!.name;
     _address.text = widget.tableRow!.address;
     _mobile1.text = widget.tableRow!.mobile1;
     _mobile2.text = widget.tableRow!.mobile2;
   }
 
-  ClientDetails _clientDetails = ClientDetails(
+  CustomerDetails _customerDetails = CustomerDetails(
       id: 0,
       name: '',
       address: '',
@@ -51,17 +51,17 @@ class _ClientDetailsFormState extends State<ClientDetailsForm> {
       _formKey.currentState?.save();
       // Submit the form data to a backend API or do something else with it
       print('Submitted form data:');
-      print('Client Name: $_name');
+      print('Customer Name: $_name');
       print('Address: $_address');
       print('Mobile 1: $_mobile1');
       print('Mobile 2: $_mobile2');
     }
-    _clientDetails.name = _name.text;
-    _clientDetails.address = _address.text;
-    _clientDetails.mobile1 = _mobile1.text;
-    _clientDetails.mobile2 = _mobile2.text;
+    _customerDetails.name = _name.text;
+    _customerDetails.address = _address.text;
+    _customerDetails.mobile1 = _mobile1.text;
+    _customerDetails.mobile2 = _mobile2.text;
 
-    bool status = await saveClientDetails(_clientDetails);
+    bool status = await saveCustomerDetails(_customerDetails);
     if (status) {
       showSaveSuccessfulMessage(context);
       Navigator.pop(context);
@@ -73,7 +73,7 @@ class _ClientDetailsFormState extends State<ClientDetailsForm> {
   }
 
   Future<void> _onDelete() async {
-    bool status = await deleteClientDetails(_clientDetails.id);
+    bool status = await deleteCustomerDetails(_customerDetails.id);
     if (status) {
       showSaveSuccessfulMessage(context);
       Navigator.pop(context);
@@ -96,10 +96,10 @@ class _ClientDetailsFormState extends State<ClientDetailsForm> {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
-              decoration: const InputDecoration(labelText: 'Client Name'),
+              decoration: const InputDecoration(labelText: 'Customer Name'),
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Please enter client name';
+                  return 'Please enter customer name';
                 }
                 return null;
               },

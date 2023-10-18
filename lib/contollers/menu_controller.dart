@@ -40,7 +40,7 @@ class CustomMenuController extends GetxController{
         return _customIcon(Icons.payments_outlined, itemName);
       case LeaveSalaryRoute:
         return _customIcon(Icons.account_balance_wallet_outlined, itemName);
-      case ClientsRoute:
+      case CustomersRoute:
         return _customIcon(Icons.handshake_outlined, itemName);
       case GratuityRoute:
         return _customIcon(Icons.savings_outlined, itemName);

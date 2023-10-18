@@ -22,14 +22,14 @@ class QuotationsPending extends StatefulWidget {
 class _QuotationsPendingState extends State<QuotationsPending> {
   List<Map<String, dynamic>> tableData = <Map<String, String>>[];
 
-  String _selectedClientName = '';
+  String _selectedCustomerName = '';
   String _selectedName = '';
   String _selectedPoStatus = '';
   String _selectedInvoiceStatus = '';
   String _selectedType = '';
 
   getData() async {
-    tableData = await getQuotationDetails(_selectedClientName, _selectedName,
+    tableData = await getQuotationDetails(_selectedCustomerName, _selectedName,
         _selectedPoStatus, _selectedInvoiceStatus, _selectedType);
   }
 
@@ -39,10 +39,10 @@ class _QuotationsPendingState extends State<QuotationsPending> {
     });
   }
 
-  applyFilter(String clientName, String name, String poStatus,
+  applyFilter(String customerName, String name, String poStatus,
       String invoiceStatus, String type) {
     setState(() {
-      _selectedClientName = clientName;
+      _selectedCustomerName = customerName;
       _selectedName = name;
       _selectedPoStatus = poStatus;
       _selectedInvoiceStatus = invoiceStatus;
@@ -86,7 +86,7 @@ class _QuotationsPendingState extends State<QuotationsPending> {
                         DataColumn(
                           label: Expanded(
                             child: Text(
-                              'Client Name',
+                              'Customer Name',
                               style: tableHeaderStyle,
                             ),
                           ),
@@ -120,7 +120,7 @@ class _QuotationsPendingState extends State<QuotationsPending> {
                           .map(
                             (tableRow) => DataRow(cells: [
                               DataCell(
-                                Text(tableRow['clientName'].toString()),
+                                Text(tableRow['customerName'].toString()),
                               ),
                               DataCell(
                                 Text(tableRow['name'].toString()),

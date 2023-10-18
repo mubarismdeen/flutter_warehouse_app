@@ -2,7 +2,7 @@ import 'package:admin/constants/style.dart';
 import 'package:flutter/material.dart';
 
 import '../api.dart';
-import '../models/clientDetails.dart';
+import '../models/customerDetails.dart';
 
 class QuotationsFilter extends StatefulWidget {
   dynamic applyFilter;
@@ -17,7 +17,7 @@ class _QuotationsFilterState extends State<QuotationsFilter> {
 
   var _name = TextEditingController();
 
-  String _selectedClientName = '';
+  String _selectedCustomerName = '';
   String _selectedName = '';
   String _selectedPoStatus = '';
   String _selectedInvoiceStatus = '';
@@ -26,18 +26,18 @@ class _QuotationsFilterState extends State<QuotationsFilter> {
   List<Map<String, dynamic>> invoiceStatuses = <Map<String, dynamic>>[];
   List<Map<String, dynamic>> poStatuses = <Map<String, dynamic>>[];
   List<Map<String, dynamic>> types = <Map<String, dynamic>>[];
-  List<ClientDetails> clients = <ClientDetails>[];
+  List<CustomerDetails> customers = <CustomerDetails>[];
 
   getDropdownInputs() async {
     invoiceStatuses = await getInvoiceStatus();
     poStatuses = await getPoStatus();
     types = await getQuotationType();
-    clients = await getClientDetails();
+    customers = await getCustomerDetails();
   }
 
   Future<void> _applyForm() async {
     _selectedName = _name.text;
-    widget.applyFilter(_selectedClientName, _selectedName, _selectedPoStatus, _selectedInvoiceStatus, _selectedType);
+    widget.applyFilter(_selectedCustomerName, _selectedName, _selectedPoStatus, _selectedInvoiceStatus, _selectedType);
     Navigator.of(context).pop();
   }
 
@@ -53,17 +53,17 @@ class _QuotationsFilterState extends State<QuotationsFilter> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   DropdownButtonFormField(
-                      decoration: const InputDecoration(labelText: 'Client'),
-                      items: clients.map<DropdownMenuItem<String>>(
-                          (ClientDetails client) {
+                      decoration: const InputDecoration(labelText: 'Customer'),
+                      items: customers.map<DropdownMenuItem<String>>(
+                          (CustomerDetails customer) {
                         return DropdownMenuItem<String>(
-                          value: client.name,
-                          child: Text(client.name),
+                          value: customer.name,
+                          child: Text(customer.name),
                         );
                       }).toList(),
                       onChanged: (String? value) {
                         setState(() {
-                          _selectedClientName = value??'';
+                          _selectedCustomerName = value??'';
                         });
                       }),
                   TextFormField(

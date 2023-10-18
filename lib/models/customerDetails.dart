@@ -1,4 +1,4 @@
-class ClientDetails {
+class CustomerDetails {
   int id = 0;
   String name = '';
   String address = '';
@@ -10,7 +10,7 @@ class ClientDetails {
   DateTime creatDt = DateTime.now();
   int status = 1;
 
-  ClientDetails({
+  CustomerDetails({
     required this.id,
     required this.name,
     required this.address,
@@ -22,7 +22,7 @@ class ClientDetails {
     required this.creatDt,
   });
 
-  ClientDetails.fromJson(Map<String, dynamic> json) {
+  CustomerDetails.fromJson(Map<String, dynamic> json) {
     id = json['id']??0;
     name = json['name']??'';
     address = json['address']??'';

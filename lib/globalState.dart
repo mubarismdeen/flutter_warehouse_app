@@ -39,8 +39,8 @@ class GlobalState {
     if(screensForUser.leaveSalary) {
       sideMenuItems.add(LeaveSalaryRoute);
     }
-    if(screensForUser.clients) {
-      sideMenuItems.add(ClientsRoute);
+    if(screensForUser.customers) {
+      sideMenuItems.add(CustomersRoute);
     }
     if(screensForUser.gratuity) {
       sideMenuItems.add(GratuityRoute);
@@ -55,7 +55,7 @@ class GlobalState {
     sideMenuItems.addAll([DashboardRoute,
       StockRoute,
       SalesRoute,
-      ClientsRoute,
+      CustomersRoute,
       EmployeesRoute,
       AttendanceRoute,
       SalaryMasterRoute,
