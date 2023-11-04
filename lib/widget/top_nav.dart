@@ -31,15 +31,16 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
       title: Wrap(children: [
         Row(
           children: [
-            const Visibility(
-                child: Text(
-              'WarehousXpress',
-              style: TextStyle(
-                  color: darke,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'LobsterFont'),
-            )),
+            if (!ResponsiveWidget.isSmallScreen(context))
+              ResponsiveWidget.isLargeScreen(context)
+              ? const Text(
+                'WarehousXpress',
+                style: appNameStyle,
+              )
+              : const Text(
+                'Warehous\nXpress',
+                style: appNameStyle,
+              ),
             Expanded(child: Container()),
             IconButton(
               icon: Icon(

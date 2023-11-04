@@ -1,37 +1,37 @@
 class UserDetails {
   int id = 0;
-  int userCd = 0;
+  int userId = 0;
   String name = '';
   String password = '';
   String empCode = '';
   String editBy = '';
-  DateTime editDt = DateTime.now();
-  String creatBy = '';
-  DateTime creatDt = DateTime.now();
+  DateTime editDate = DateTime.now();
+  String createBy = '';
+  DateTime createDate = DateTime.now();
 
-  UserDetails({required this.creatBy, required this.empCode});
+  UserDetails({required this.createBy, required this.empCode});
 
   UserDetails.fromJson(Map<String, dynamic> json) {
     id =  json['id']??"0";
-    userCd =  json['userCd']??"0";
+    userId =  json['userId']??"0";
     name =  json['name']??"";
     password =  json['password']??"";
     empCode =  json['empCode']??"";
     editBy = json['editBy']??'';
-    editDt = DateTime.parse(json['editDt']);
-    creatBy = json['creatBy']??'';
-    creatDt = DateTime.parse(json['creatDt']);
+    editDate = DateTime.parse(json['editDate']);
+    createBy = json['createBy']??'';
+    createDate = DateTime.parse(json['createDate']);
   }
 
   Map<String, dynamic> toJson() => {
     'id': id,
-    'userCd': userCd,
+    'userCd': userId,
     'name': name,
     'password': password,
     'empCode': empCode,
     'editBy': editBy,
-    'editDt': editDt.toIso8601String(),
-    'creatBy': creatBy,
-    'creatDt': creatDt.toIso8601String(),
+    'editDate': editDate.toIso8601String(),
+    'createBy': createBy,
+    'createDate': createDate.toIso8601String(),
   };
 }

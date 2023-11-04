@@ -131,7 +131,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
     var userData = await getUserDetails(empCode);
     UserScreens empScreens = screensData.isNotEmpty
         ? screensData.first
-        : UserScreens(creatBy: GlobalState.userEmpCode);
+        : UserScreens(createBy: GlobalState.userId);
     UserDetails? userDetails = userData.isNotEmpty ? userData.first : null;
     List<UserPrivileges> privilegesList =
         await getAllPrivilegesForUser(empCode);

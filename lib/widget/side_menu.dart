@@ -1,5 +1,4 @@
 import 'package:admin/routes/routes.dart';
-import 'package:admin/widget/custom_text.dart';
 import 'package:admin/widget/side_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,9 +23,9 @@ class SideMenu extends StatelessWidget {
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const SizedBox(
-                  height: 40,
-                ),
+                // const SizedBox(
+                //   height: 40,
+                // ),
                 Row(
                   children: [
                     SizedBox(width: _width / 48),
@@ -35,7 +34,7 @@ class SideMenu extends StatelessWidget {
                       child: Hero(
                         tag: 'icon',
                         child: Container(
-                          height: 35,
+                          height: 55,
                           padding: EdgeInsets.only(left: 10, top: 5),
                           child: const ExcludeSemantics(
                             child: FadeInImagePlaceholder(
@@ -47,11 +46,9 @@ class SideMenu extends StatelessWidget {
                       ),
                     ),
                     const Flexible(
-                      child: CustomText(
-                        text: "HRMS",
-                        size: 20,
-                        weight: FontWeight.bold,
-                        color: darke,
+                      child: Text(
+                        'WarehousXpress',
+                        style: appNameStyle,
                       ),
                     ),
                   ],

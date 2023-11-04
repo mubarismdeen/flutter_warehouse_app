@@ -57,7 +57,7 @@ class _EmployeeAccessesDialogState extends State<EmployeeAccessesDialog> {
       _password.text = _userDetails.password;
     } else {
       _userDetails = UserDetails(
-          creatBy: GlobalState.userEmpCode, empCode: widget.employeeCode);
+          createBy: GlobalState.userEmpCode, empCode: widget.employeeCode);
     }
     if (_userScreens.dashboard) _selectedScreens.add(Screen.dashboard);
     if (_userScreens.employees) _selectedScreens.add(Screen.employees);
@@ -309,7 +309,7 @@ class _EmployeeAccessesDialogState extends State<EmployeeAccessesDialog> {
                           _selectedPrivileges.add(selectedOption);
 
                           UserPrivileges newPrivilege = UserPrivileges(
-                            userId: _userDetails.userCd,
+                            userId: _userDetails.userId,
                             privilegeName:
                                 _getPrivilegeNameForDisplayValue(selectedOption),
                             creatBy: GlobalState.userEmpCode,
@@ -445,7 +445,7 @@ class _EmployeeAccessesDialogState extends State<EmployeeAccessesDialog> {
     _userDetails.name = _username.text;
     _userDetails.password = _password.text;
     _userDetails.editBy = GlobalState.userEmpCode;
-    _userDetails.editDt = DateTime.now();
+    _userDetails.editDate = DateTime.now();
 
     bool status = await saveUserDetails(_userDetails);
     if (status) {
@@ -461,9 +461,9 @@ class _EmployeeAccessesDialogState extends State<EmployeeAccessesDialog> {
   }
 
   Future<void> _onScreensSubmit() async {
-    _userScreens.editBy = GlobalState.userEmpCode;
-    _userScreens.editDt = DateTime.now();
-    _userScreens.userId = _userDetails.userCd;
+    _userScreens.editBy = GlobalState.userId;
+    _userScreens.editDate = DateTime.now();
+    _userScreens.userId = _userDetails.userId;
 
     bool status = await saveScreensForEmployee(_userScreens);
     if (status) {

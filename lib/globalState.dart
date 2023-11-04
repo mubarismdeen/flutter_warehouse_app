@@ -8,6 +8,7 @@ class GlobalState {
 
   static String username = "User";
   static String userEmpCode = "1";
+  static int userId = 1;
 
   static List<String> sideMenuItems =[];
 
@@ -69,6 +70,7 @@ class GlobalState {
   static Future<void> setEmployeeCodeForSession(String givenUsername) async {
     UserDetails userDetails = (await getUserDetailsWithUsername(givenUsername)).first;
     userEmpCode = userDetails.empCode;
+    userId = userDetails.userId;
   }
 
 }

@@ -11,12 +11,12 @@ class UserScreens {
   bool leaveSalary = false;
   bool customers = false;
   bool gratuity = false;
-  String editBy = '';
-  DateTime editDt = DateTime.now();
-  String creatBy = '';
-  DateTime creatDt = DateTime.now();
+  int editBy = 0;
+  DateTime editDate = DateTime.now();
+  int createBy = 0;
+  DateTime createDate = DateTime.now();
 
-  UserScreens({required this.creatBy});
+  UserScreens({required this.createBy});
 
   UserScreens.fromJson(Map<String, dynamic> json) {
     id =  json['id']??"0";
@@ -31,10 +31,10 @@ class UserScreens {
     leaveSalary =  json['leaveSalary']??false;
     customers =  json['customers']??false;
     gratuity =  json['gratuity']??false;
-    editBy = json['editBy']??'';
-    editDt = DateTime.parse(json['editDate']);
-    creatBy = json['createBy']??'';
-    creatDt = DateTime.parse(json['createDate']);
+    editBy = json['editBy']??"0";
+    editDate = DateTime.parse(json['editDate']);
+    createBy = json['createBy']??"0";
+    createDate = DateTime.parse(json['createDate']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -51,8 +51,8 @@ class UserScreens {
     'customers': customers,
     'gratuity': gratuity,
     'editBy': editBy,
-    'editDt': editDt.toIso8601String(),
-    'creatBy': creatBy,
-    'creatDt': creatDt.toIso8601String(),
+    'editDate': editDate.toIso8601String(),
+    'createBy': createBy,
+    'createDate': createDate.toIso8601String(),
   };
 }
