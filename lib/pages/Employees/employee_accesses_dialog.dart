@@ -450,7 +450,7 @@ class _EmployeeAccessesDialogState extends State<EmployeeAccessesDialog> {
     bool status = await saveUserDetails(_userDetails);
     if (status) {
       showSaveSuccessfulMessage(context);
-      _userDetails = (await getUserDetails(_userDetails.empCode)).first;
+      _userDetails = (await getUserDetailsWithEmpCode(_userDetails.empCode)).first;
       setState(() {
         _userDetails;
         _isProfileSet = true;

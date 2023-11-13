@@ -128,7 +128,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
   void _openPrivilegesDialog(EmployeeDetails employee) async {
     String empCode = employee.empCode;
     var screensData = await getScreensForEmployee(empCode);
-    var userData = await getUserDetails(empCode);
+    var userData = await getUserDetailsWithEmpCode(empCode);
     UserScreens empScreens = screensData.isNotEmpty
         ? screensData.first
         : UserScreens(createBy: GlobalState.userId);

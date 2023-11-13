@@ -71,21 +71,21 @@ Future<bool> userValidate(String userID, String password) async {
 }
 
 Future<List<UserScreens>> authorizeUser(String username, String password) async {
-  String urlWithParams = "http://$ip/api/authorizeUser?username=$username&password=$password";
+  String urlWithParams = "http://$ip/user/authorizeUser?username=$username&password=$password";
   List<UserScreens> list = (await httpConnect(urlWithParams, HttpMethod.GET) as List)
       .map((job) => UserScreens.fromJson(job)).toList();
   return list;
 }
 
-Future<List<UserDetails>> getUserDetails (String empCode) async {
-  String urlWithParams = "http://$ip/Hrms/getUserDetails?empCode=$empCode";
+Future<List<UserDetails>> getUserDetailsWithEmpCode (String empCode) async {
+  String urlWithParams = "http://$ip/user/getUserDetailsWithEmpCode?empCode=$empCode";
   List<UserDetails> list = (await httpConnect(urlWithParams, HttpMethod.GET) as List)
       .map((job) => UserDetails.fromJson(job)).toList();
   return list;
 }
 
 Future<List<UserDetails>> getUserDetailsWithUsername (String username) async {
-  String urlWithParams = "http://$ip/Hrms/getUserDetailsWithUsername?username=$username";
+  String urlWithParams = "http://$ip/user/getUserDetailsWithUsername?username=$username";
   List<UserDetails> list = (await httpConnect(urlWithParams, HttpMethod.GET) as List)
       .map((job) => UserDetails.fromJson(job)).toList();
   return list;
@@ -98,7 +98,7 @@ Future<bool> saveUserDetails(UserDetails userDetails) async {
 }
 
 Future<List<UserScreens>> getScreensForEmployee (String empCode) async {
-  String urlWithParams = "http://$ip/Hrms/getScreensForEmployee?empCode=$empCode";
+  String urlWithParams = "http://$ip/employees/getScreensForEmployee?empCode=$empCode";
   List<UserScreens> list = (await httpConnect(urlWithParams, HttpMethod.GET) as List)
       .map((job) => UserScreens.fromJson(job)).toList();
   return list;
@@ -111,14 +111,14 @@ Future<bool> saveScreensForEmployee(UserScreens userScreens) async {
 }
 
 Future<List<UserPrivileges>> getAllPrivilegesForUser(String empCode) async {
-  String urlWithParams = "http://$ip/Hrms/getAllPrivilegesForUser?empCode=$empCode";
+  String urlWithParams = "http://$ip/user/getAllPrivilegesForUser?empCode=$empCode";
   List<UserPrivileges> list = (await httpConnect(urlWithParams, HttpMethod.GET) as List)
       .map((job) => UserPrivileges.fromJson(job)).toList();
   return list;
 }
 
 Future<List<UserPrivileges>> getAPrivilegeForUser(String username, String privilegeName) async {
-  String urlWithParams = "http://$ip/Hrms/getAPrivilegeForUser?userName=$username&privilege=$privilegeName";
+  String urlWithParams = "http://$ip/user/getAPrivilegeForUser?userName=$username&privilegeName=$privilegeName";
   List<UserPrivileges> list = (await httpConnect(urlWithParams, HttpMethod.GET) as List)
       .map((job) => UserPrivileges.fromJson(job)).toList();
   return list;
