@@ -85,9 +85,8 @@ class _MainViewState extends State<_MainView> {
     List<Widget> listViewChildren;
     bool logStatus1 = false;
 
-    if (isDesktop) {
       listViewChildren = [
-        const _AppLogo(),
+        _AppLogo(isDesktop),
         _UsernameInput(
           maxWidth: 400,
           usernameController: widget.usernameController,
@@ -122,14 +121,6 @@ class _MainViewState extends State<_MainView> {
               logStatus1 = true;
               GlobalState.setScreensForUser(widget.usernameController!.text, screensForUser.first);
             }
-            // logStatus1 = await localUserValidation(
-            //   widget.usernameController!.text,
-            //   widget.passwordController!.text,
-            // );
-            // if (logStatus1) {
-            //   GlobalState.setScreensForLocalValidation();
-            // }
-
             if (logStatus1) {
               showError = false;
               setState(() {
@@ -146,27 +137,9 @@ class _MainViewState extends State<_MainView> {
           status: showError,
         ),
       ];
-    } else {
-      listViewChildren = [
-        const _AppLogo(),
-        _UsernameInput(
-          usernameController: widget.usernameController,
-        ),
-        const SizedBox(height: 12),
-        _PasswordInput(
-          passwordController: widget.passwordController,
-        ),
-        _ThumbButton(
-          onTap: () {
-            _login(context);
-          },
-        ),
-      ];
-    }
 
     return Column(
       children: [
-        // if (isDesktop) const _TopBar(),
         Expanded(
           child: Align(
             alignment: isDesktop ? Alignment.center : Alignment.topCenter,
@@ -189,19 +162,21 @@ class _MainViewState extends State<_MainView> {
 }
 
 class _AppLogo extends StatelessWidget {
-  const _AppLogo();
+  final isDesktop;
+
+  const _AppLogo([this.isDesktop = true]);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 70),
       child: Column(
-        children: const [
+        children: [
           Hero(
             tag: 'icon',
             child: SizedBox(
-              height: 160,
-              child: ExcludeSemantics(
+              height: isDesktop ? 160 : 100,
+              child: const ExcludeSemantics(
                 child: FadeInImagePlaceholder(
                   image: AssetImage('images/app_icon.png'),
                   placeholder: SizedBox.shrink(),
@@ -209,13 +184,13 @@ class _AppLogo extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Center(
             child: Text(
               "WarehousXpress",
               style: TextStyle(
                   fontWeight: FontWeight.w900,
-                  fontSize: 30,
+                  fontSize: isDesktop ? 30 : 25,
                   fontFamily: "LobsterFont",
                   color: Colors.white),
             ),
@@ -308,74 +283,6 @@ class _PasswordInput extends StatelessWidget {
           displayText: "Password",
           obscureText: true,
           controller: passwordController),
-    );
-  }
-}
-
-class _ThumbButton extends StatefulWidget {
-  const _ThumbButton({
-    required this.onTap,
-  });
-
-  final VoidCallback onTap;
-
-  @override
-  _ThumbButtonState createState() => _ThumbButtonState();
-}
-
-class _ThumbButtonState extends State<_ThumbButton> {
-  BoxDecoration? borderDecoration;
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      button: true,
-      enabled: true,
-      label: "HRMS",
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: widget.onTap,
-          child: Focus(
-            onKey: (node, event) {
-              if (event is RawKeyDownEvent) {
-                if (event.logicalKey == LogicalKeyboardKey.enter ||
-                    event.logicalKey == LogicalKeyboardKey.space) {
-                  widget.onTap();
-                  return KeyEventResult.handled;
-                }
-              }
-              return KeyEventResult.ignored;
-            },
-            onFocusChange: (hasFocus) {
-              if (hasFocus) {
-                setState(() {
-                  borderDecoration = BoxDecoration(
-                    border: Border.all(
-                      color: Colors.white.withOpacity(0.5),
-                      width: 2,
-                    ),
-                  );
-                });
-              } else {
-                setState(() {
-                  borderDecoration = null;
-                });
-              }
-            },
-            child: Container(
-              decoration: borderDecoration,
-              height: 120,
-              child: ExcludeSemantics(
-                child: Image.asset(
-                  'thumb.png',
-                  package: 'rally_assets',
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

@@ -38,7 +38,7 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
                 style: appNameStyle,
               )
               : const Text(
-                'Warehous\nXpress',
+                'WX',
                 style: appNameStyle,
               ),
             Expanded(child: Container()),
