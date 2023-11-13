@@ -7,8 +7,8 @@ class EmployeeDetails {
   String department = '';
   String status = '';
   String nationality = '';
-  DateTime birthDt = DateTime.now();
-  DateTime joinDt = DateTime.now();
+  String birthDt = '';
+  String joinDt = '';
   String editBy = '';
   DateTime editDt = DateTime.now();
   String createBy = '';
@@ -40,8 +40,8 @@ class EmployeeDetails {
     department = json['department']??'';
     status = json['status']??'';
     nationality = json['nationality']??'';
-    birthDt = DateTime.parse(json['birthDt']);
-    joinDt = DateTime.parse(json['joinDt']);
+    birthDt = json['birthDt']??'';
+    joinDt = json['joinDt']??'';
     editBy = json['editBy']??'';
     editDt = DateTime.parse(json['editDt']);
     createBy = json['createBy']??'';

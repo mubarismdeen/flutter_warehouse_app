@@ -261,7 +261,7 @@ Future<List<SalaryMasterGet>> getSalaryMaster(String date) async {
 }
 
 Future<List<EmployeeDetails>> getEmployeeDetails() async {
-  String urlWithParams = "http://$ip/Hrms/getEmployeeDetails";
+  String urlWithParams = "http://$ip/employees/getEmployeeDetails";
   List<EmployeeDetails> list = (await httpConnect(urlWithParams, HttpMethod.GET))
       .map((job) => EmployeeDetails.fromJson(job)).cast<EmployeeDetails>().toList();
   return list;

@@ -59,9 +59,8 @@ class _EmployeeDetailsFormState extends State<EmployeeDetailsForm> {
     _name.text = widget.tableRow!.name;
     _mobile1.text = widget.tableRow!.mobile1;
     _mobile2.text = widget.tableRow!.mobile2;
-    _dob.text = DateFormat('yyyy-MM-dd').format(widget.tableRow!.birthDt);
-    _joiningDate.text =
-        DateFormat('yyyy-MM-dd').format(widget.tableRow!.joinDt);
+    _dob.text = widget.tableRow!.birthDt;
+    _joiningDate.text = widget.tableRow!.joinDt;
     _department = widget.tableRow!.department;
     _nationality = widget.tableRow!.nationality;
     _status = widget.tableRow!.status;
