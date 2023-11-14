@@ -41,13 +41,11 @@ class _EmployeeDetailsFormState extends State<EmployeeDetailsForm> {
   List<Map<String, dynamic>> departments = <Map<String, dynamic>>[];
   List<Map<String, dynamic>> nationalities = <Map<String, dynamic>>[];
   List<Map<String, dynamic>> statuses = <Map<String, dynamic>>[];
-  List<EmpMaster> assignedToOptions = <EmpMaster>[];
 
   getDropdownInputs() async {
     departments = await getDepartments();
     nationalities = await getEmployeeNationalities();
     statuses = await getEmployeeStatuses();
-    assignedToOptions = await getEmpDetails();
     if (widget.tableRow != null) {
       setValue();
     }
@@ -66,11 +64,11 @@ class _EmployeeDetailsFormState extends State<EmployeeDetailsForm> {
     _status = widget.tableRow!.status;
 
     _selectedDepartment = departments
-        .firstWhere((department) => department['description'] == _department);
+        .firstWhere((department) => department['name'] == _department);
     _selectedNationality = nationalities.firstWhere(
-        (nationality) => nationality['description'] == _nationality);
+        (nationality) => nationality['name'] == _nationality);
     _selectedStatus =
-        statuses.firstWhere((status) => status['description'] == _status);
+        statuses.firstWhere((status) => status['name'] == _status);
   }
 
   SaveEmployeeDetails _employeeDetails = SaveEmployeeDetails(
@@ -266,14 +264,14 @@ class _EmployeeDetailsFormState extends State<EmployeeDetailsForm> {
                       items: departments.map<DropdownMenuItem<String>>(
                           (Map<String, dynamic> department) {
                         return DropdownMenuItem<String>(
-                          value: department['description'],
-                          child: Text(department['description']),
+                          value: department['name'],
+                          child: Text(department['name']),
                         );
                       }).toList(),
                       onChanged: (String? value) {
                         // setState(() {
                         _selectedDepartment = departments.firstWhere(
-                            (department) => department['description'] == value);
+                            (department) => department['name'] == value);
                         // });
                       },
                       value: _department),
@@ -288,14 +286,14 @@ class _EmployeeDetailsFormState extends State<EmployeeDetailsForm> {
                     items: statuses.map<DropdownMenuItem<String>>(
                         (Map<String, dynamic> status) {
                       return DropdownMenuItem<String>(
-                        value: status['description'],
-                        child: Text(status['description']),
+                        value: status['name'],
+                        child: Text(status['name']),
                       );
                     }).toList(),
                     onChanged: (String? value) {
                       // setState(() {
                       _selectedStatus = statuses.firstWhere(
-                          (status) => status['description'] == value);
+                          (status) => status['name'] == value);
                       // });
                       if (value == 'Resigned') {
                         _resignPopup();
@@ -314,14 +312,14 @@ class _EmployeeDetailsFormState extends State<EmployeeDetailsForm> {
                     items: nationalities.map<DropdownMenuItem<String>>(
                         (Map<String, dynamic> nationality) {
                       return DropdownMenuItem<String>(
-                        value: nationality['description'],
-                        child: Text(nationality['description']),
+                        value: nationality['name'],
+                        child: Text(nationality['name']),
                       );
                     }).toList(),
                     onChanged: (String? value) {
                       // setState(() {
                       _selectedNationality = nationalities.firstWhere(
-                          (nationality) => nationality['description'] == value);
+                          (nationality) => nationality['name'] == value);
                       // });
                     },
                     value: _nationality,

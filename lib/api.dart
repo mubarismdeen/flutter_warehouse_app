@@ -318,21 +318,21 @@ Future<List<Map<String, dynamic>>> getJobStatuses() async {
 }
 
 Future<List<Map<String, dynamic>>> getDepartments() async {
-  String urlWithParams = "http://$ip/Hrms/getDeparments";
+  String urlWithParams = "http://$ip/departments/getDepartments";
   List<Map<String, dynamic>> list = (await httpConnect(urlWithParams, HttpMethod.GET) as List)
       .map((dynamic e) => e as Map<String, dynamic>).toList();
   return list;
 }
 
 Future<List<Map<String, dynamic>>> getEmployeeStatuses() async {
-  String urlWithParams = "http://$ip/Hrms/getEmployeeStatuses";
+  String urlWithParams = "http://$ip/statuses/getEmployeeStatuses";
   List<Map<String, dynamic>> list = (await httpConnect(urlWithParams, HttpMethod.GET) as List)
       .map((dynamic e) => e as Map<String, dynamic>).toList();
   return list;
 }
 
 Future<List<Map<String, dynamic>>> getEmployeeNationalities() async {
-  String urlWithParams = "http://$ip/Hrms/getEmployeeNationalities";
+  String urlWithParams = "http://$ip/nationalities/getEmployeeNationalities";
   List<Map<String, dynamic>> list = (await httpConnect(urlWithParams, HttpMethod.GET) as List)
       .map((dynamic e) => e as Map<String, dynamic>).toList();
   return list;
