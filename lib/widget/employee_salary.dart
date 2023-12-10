@@ -27,9 +27,9 @@ class _EmployeeSalaryState extends State<EmployeeSalary> {
       paid: false,
       paidDt: DateTime.now(),
       editBy: GlobalState.userEmpCode,
-      editDt: DateTime.now(),
-      creatBy: GlobalState.userEmpCode,
-      creatDt: DateTime.now());
+      editDate: DateTime.now(),
+      createBy: GlobalState.userEmpCode,
+      createDate: DateTime.now());
 
   getData() async {
     _salaryPay =
@@ -44,7 +44,7 @@ class _EmployeeSalaryState extends State<EmployeeSalary> {
     _salaryPaid.date = DateFormat('yyyy-MM').format(DateTime.now()).toString();
     _salaryPaid.paidBy = 1;
     _salaryPaid.paid = salary.due == _paidAmount ? true : false;
-    _salaryPaid.creatBy = GlobalState.userEmpCode;
+    _salaryPaid.createBy = GlobalState.userEmpCode;
     _salaryPaid.editBy = GlobalState.userEmpCode;
 
     bool status = await saveSalaryPaid(_salaryPaid);

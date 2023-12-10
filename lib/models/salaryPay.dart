@@ -14,9 +14,9 @@ class SalaryPay{
   double currentDue = 0;
   bool paid = false;
   String editBy = '';
-  DateTime editDt = DateTime.now();
-  String creatBy = '';
-  DateTime creatDt = DateTime.now();
+  DateTime editDate = DateTime.now();
+  String createBy = '';
+  DateTime createDate = DateTime.now();
 
   SalaryPay({
     required this.id,
@@ -27,9 +27,9 @@ class SalaryPay{
     required this.overseas,
     required this.anchorage,
     required this.editBy,
-    required this.editDt,
-    required this.creatBy,
-    required this.creatDt,
+    required this.editDate,
+    required this.createBy,
+    required this.createDate,
     required this.total,
     required this.totalPaid,
     required this.due,
@@ -47,9 +47,9 @@ class SalaryPay{
     'overseas': overseas,
     'anchorage': anchorage,
     'editBy': editBy,
-    'editDt': editDt.toIso8601String(),
-    'creatBy': creatBy,
-    'creatDt': creatDt.toIso8601String(),
+    'editDate': editDate.toIso8601String(),
+    'createBy': createBy,
+    'createDate': createDate.toIso8601String(),
   };
 
   SalaryPay.fromJson(Map<String, dynamic> json) {
@@ -61,9 +61,9 @@ class SalaryPay{
     overseas = json['overseas']??0.0;
     anchorage = json['anchorage']??0.0;
     editBy = json['editBy']??'';
-    editDt = DateTime.parse(json['editDt']);
-    creatBy = json['creatBy']??'';
-    creatDt = DateTime.parse(json['creatDt']);
+    editDate = DateTime.parse(json['editDate']);
+    createBy = json['createBy']??'';
+    createDate = DateTime.parse(json['createDate']);
     total = json['total']??0.0;
     totalPaid = json['totalPaid']??0.0;
     due = json['due']??0.0;

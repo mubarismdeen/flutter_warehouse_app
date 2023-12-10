@@ -10,6 +10,11 @@ String getDateStringFromDateTime(DateTime dateTime) {
   return DateFormat('yyyy-MM-dd').format(dateTime);
 }
 
+String getDateTimeString(DateTime dateTime) {
+  DateFormat outputFormat = DateFormat('MMM d, y h:mm a');
+  return outputFormat.format(dateTime);
+}
+
 Card getCustomCard(Widget child) {
   return Card(
     elevation: 8.0,

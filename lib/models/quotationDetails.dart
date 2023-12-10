@@ -14,10 +14,10 @@ class QuotationDetails {
   int invStatus = 0;
   int type = 0;
   String dueDate = "";
-  String creatBy = "";
-  DateTime creatDt = DateTime.now();
+  String createBy = "";
+  DateTime createDate = DateTime.now();
   String editBy = "";
-  DateTime editDt = DateTime.now();
+  DateTime editDate = DateTime.now();
   int status = 1;
 
   QuotationDetails({
@@ -35,10 +35,10 @@ class QuotationDetails {
     required this.invStatus,
     required this.type,
     required this.dueDate,
-    required this.creatBy,
-    required this.creatDt,
+    required this.createBy,
+    required this.createDate,
     required this.editBy,
-    required this.editDt,
+    required this.editDate,
   });
 
   QuotationDetails.toJson();
@@ -59,10 +59,10 @@ class QuotationDetails {
         'invStatus': invStatus,
         'type': type,
         'dueDate': dueDate,
-        'creatBy':creatBy,
-        'creatDt':creatDt.toIso8601String(),
+        'createBy':createBy,
+        'createDate':createDate.toIso8601String(),
         'editBy':editBy,
-        'editDt':editDt.toIso8601String(),
+        'editDate':editDate.toIso8601String(),
         'status': status,
       };
 }

@@ -11,7 +11,7 @@ class EmpMaster {
   DateTime birthDt = DateTime.now();
   String editBy = '';
   DateTime editDate = DateTime.now();
-  String creatBy = '';
+  String createBy = '';
   DateTime creatDate = DateTime.now();
 
   EmpMaster({
@@ -27,7 +27,7 @@ class EmpMaster {
     required this.birthDt,
     required this.editBy,
     required this.editDate,
-    required this.creatBy,
+    required this.createBy,
     required this.creatDate,
   });
 
@@ -45,7 +45,7 @@ class EmpMaster {
     'birthDt' :birthDt.toIso8601String() ,
     'editBy' :editBy ,
     'editDate' :editDate.toIso8601String() ,
-    'creatBy' :creatBy ,
+    'createBy' :createBy ,
     'creatDate' :creatDate.toIso8601String(),
   };
 
@@ -62,7 +62,7 @@ class EmpMaster {
         birthDt =  DateTime.parse(json['birthDt']??DateTime.now());
         editBy =  json['editBy']??"";
         editDate =  DateTime.parse(json['editDate']??DateTime.now());
-        creatBy =  json['creatBy']??"";
+        createBy =  json['createBy']??"";
         creatDate =  DateTime.parse(json['creatDate']??DateTime.now());
     }
 

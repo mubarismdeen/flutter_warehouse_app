@@ -85,7 +85,7 @@ class _EmployeeDetailsFormState extends State<EmployeeDetailsForm> {
       birthDt: DateTime.now(),
       editBy: GlobalState.userEmpCode,
       editDate: DateTime.now(),
-      creatBy: GlobalState.userEmpCode,
+      createBy: GlobalState.userEmpCode,
       creatDate: DateTime.now());
 
   Future<void> _onSubmit() async {

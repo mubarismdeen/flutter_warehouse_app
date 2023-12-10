@@ -73,9 +73,9 @@ class _EmployeeAttendanceState extends State<EmployeeAttendance> {
           anchorage: 0,
           date: DateFormat('yyyy-MM').format(DateTime.now()).toString(),
           editBy: GlobalState.userEmpCode,
-          editDt: DateTime.now(),
-          creatBy: GlobalState.userEmpCode,
-          creatDt: DateTime.now()));
+          editDate: DateTime.now(),
+          createBy: GlobalState.userEmpCode,
+          createDate: DateTime.now()));
     }
   }
 
@@ -95,9 +95,9 @@ class _EmployeeAttendanceState extends State<EmployeeAttendance> {
             anchorage: att.totalAnchorageDays,
             date: DateFormat('yyyy-MM').format(DateTime.now()),
             editBy: GlobalState.userEmpCode,
-            editDt: DateTime.now(),
-            creatBy: GlobalState.userEmpCode,
-            creatDt: DateTime.now()))
+            editDate: DateTime.now(),
+            createBy: GlobalState.userEmpCode,
+            createDate: DateTime.now()))
         .toList();
   }
 
@@ -133,9 +133,9 @@ class _EmployeeAttendanceState extends State<EmployeeAttendance> {
               anchorage: 0,
               date: '',
               editBy: GlobalState.userEmpCode,
-              editDt: DateTime.now(),
-              creatBy: GlobalState.userEmpCode,
-              creatDt: DateTime.now())
+              editDate: DateTime.now(),
+              createBy: GlobalState.userEmpCode,
+              createDate: DateTime.now())
         ];
       } else {
         attendances.add(AttendanceDto(
@@ -162,9 +162,9 @@ class _EmployeeAttendanceState extends State<EmployeeAttendance> {
             anchorage: 0,
             date: '',
             editBy: GlobalState.userEmpCode,
-            editDt: DateTime.now(),
-            creatBy: GlobalState.userEmpCode,
-            creatDt: DateTime.now()));
+            editDate: DateTime.now(),
+            createBy: GlobalState.userEmpCode,
+            createDate: DateTime.now()));
       }
     }
   }

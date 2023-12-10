@@ -69,9 +69,9 @@ class _AttendanceExcelUploadState extends State<AttendanceExcelUpload> {
                   anchorage: double.parse(rowData[8].toString()),
                   date: DateFormat('yyyy-MM').format(widget.pickedDate),
                   editBy: GlobalState.userEmpCode,
-                  editDt: DateTime.now(),
-                  creatBy: GlobalState.userEmpCode,
-                  creatDt: DateTime.now())
+                  editDate: DateTime.now(),
+                  createBy: GlobalState.userEmpCode,
+                  createDate: DateTime.now())
             ];
           } else {
             _attendanceList.add(AttendanceModel(
@@ -86,9 +86,9 @@ class _AttendanceExcelUploadState extends State<AttendanceExcelUpload> {
                 anchorage: double.parse(rowData[8].toString()),
                 date: DateFormat('yyyy-MM').format(widget.pickedDate),
                 editBy: GlobalState.userEmpCode,
-                editDt: DateTime.now(),
-                creatBy: GlobalState.userEmpCode,
-                creatDt: DateTime.now()));
+                editDate: DateTime.now(),
+                createBy: GlobalState.userEmpCode,
+                createDate: DateTime.now()));
           }
         }
       }

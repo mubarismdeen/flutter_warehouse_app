@@ -1,7 +1,9 @@
+import 'package:admin/api.dart';
 import 'package:admin/constants/style.dart';
-import 'package:admin/models/stockDetails.dart';
 import 'package:admin/utils/common_utils.dart';
 import 'package:flutter/material.dart';
+
+import '../../models/stock.dart';
 
 class StockTable extends StatefulWidget {
   @override
@@ -9,16 +11,10 @@ class StockTable extends StatefulWidget {
 }
 
 class _StockTableState extends State<StockTable> {
-  // List<StockDetails> _stockDetails = List<StockDetails>.empty();
-  List<StockDetails> _stockDetails = [
-    StockDetails(productCode: 1, name: 'tomato', type: 'vegetable', unit: 'kg', quantity: 10, price: 5, value: 50),
-    StockDetails(productCode: 2, name: 'apple', type: 'fruit', unit: 'kg', quantity: 20, price: 15, value: 300),
-    StockDetails(productCode: 3, name: 'pencil', type: 'stationary', unit: 'nos', quantity: 100, price: 10, value: 1000),
-  ];
+  List<Stock> _totalStock = List.empty();
 
   getData() async {
-    // _stockDetails =
-    // await getSalaryMaster(DateFormat('yyyy-MM').format(DateTime.now()));
+    _totalStock = await getTotalStock();
   }
 
   @override
@@ -44,7 +40,15 @@ class _StockTableState extends State<StockTable> {
                           DataColumn(
                             label: Expanded(
                               child: Text(
-                                'Product\nID',
+                                'Batch\nCode',
+                                style: tableHeaderStyle,
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Expanded(
+                              child: Text(
+                                'Product\nCode',
                                 style: tableHeaderStyle,
                               ),
                             ),
@@ -53,14 +57,6 @@ class _StockTableState extends State<StockTable> {
                             label: Expanded(
                               child: Text(
                                 'Product\nName',
-                                style: tableHeaderStyle,
-                              ),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Expanded(
-                              child: Text(
-                                'Product\nType',
                                 style: tableHeaderStyle,
                               ),
                             ),
@@ -84,7 +80,7 @@ class _StockTableState extends State<StockTable> {
                           DataColumn(
                             label: Expanded(
                               child: Text(
-                                'Price',
+                                'Unit\nCost',
                                 style: tableHeaderStyle,
                               ),
                             ),
@@ -92,21 +88,57 @@ class _StockTableState extends State<StockTable> {
                           DataColumn(
                             label: Expanded(
                               child: Text(
-                                'Value',
+                                'Unit\nPrice',
+                                style: tableHeaderStyle,
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Expanded(
+                              child: Text(
+                                'Edit\nBy',
+                                style: tableHeaderStyle,
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Expanded(
+                              child: Text(
+                                'Edit\nDate',
+                                style: tableHeaderStyle,
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Expanded(
+                              child: Text(
+                                'Create\nBy',
+                                style: tableHeaderStyle,
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Expanded(
+                              child: Text(
+                                'Create\nDate',
                                 style: tableHeaderStyle,
                               ),
                             ),
                           ),
                         ],
-                        rows: _stockDetails
-                            .map((product) => DataRow(cells: [
-                          DataCell(Text(product.productCode.toString())),
-                          DataCell(Text(product.name)),
-                          DataCell(Text(product.type)),
-                          DataCell(Text(product.unit)),
-                          DataCell(Text(product.quantity.toString())),
-                          DataCell(Text(product.price.toString())),
-                          DataCell(Text(product.value.toString())),
+                        rows: _totalStock
+                            .map((stock) => DataRow(cells: [
+                          DataCell(Text(stock.batchCode)),
+                          DataCell(Text(stock.productCode)),
+                          DataCell(Text(stock.productName)),
+                          DataCell(Text(stock.unit)),
+                          DataCell(Text(stock.quantity.toString())),
+                          DataCell(Text(stock.unitCost.toString())),
+                          DataCell(Text(stock.unitPrice.toString())),
+                          DataCell(Text(stock.editBy)),
+                          DataCell(Text(getDateTimeString(stock.editDate))),
+                          DataCell(Text(stock.createBy)),
+                          DataCell(Text(getDateTimeString(stock.createDate))),
                         ]))
                             .toList(),
                       ),

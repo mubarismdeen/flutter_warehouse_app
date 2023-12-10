@@ -23,7 +23,7 @@ class CustomersScreen extends StatefulWidget {
 
 class _CustomersScreenState extends State<CustomersScreen> {
   List<CustomerDetails> _customerDetails = List<CustomerDetails>.empty();
-  UserPrivileges privileges = UserPrivileges(userId: 0, privilegeName: "", creatBy: "", creatDt: DateTime.now());
+  UserPrivileges privileges = UserPrivileges(userId: 0, privilegeName: "", createBy: "", createDate: DateTime.now());
 
   getTableData() async {
     _customerDetails = await getCustomerDetails();
@@ -149,10 +149,10 @@ class _CustomersScreenState extends State<CustomersScreen> {
                                             DataCell(Text(customer.mobile1)),
                                             DataCell(Text(customer.mobile2)),
                                             DataCell(Text(
-                                                customer.creatBy)),
+                                                customer.createBy)),
                                             DataCell(Text(
                                                 getDateStringFromDateTime(
-                                                    customer.creatDt))),
+                                                    customer.createDate))),
                                           ],
                                           onSelectChanged: (selected) {
                                             if (selected != null && selected &&

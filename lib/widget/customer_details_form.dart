@@ -42,9 +42,9 @@ class _CustomerDetailsFormState extends State<CustomerDetailsForm> {
       mobile1: '',
       mobile2: '',
       editBy: GlobalState.userEmpCode,
-      editDt: DateTime.now(),
-      creatBy: GlobalState.userEmpCode,
-      creatDt: DateTime.now());
+      editDate: DateTime.now(),
+      createBy: GlobalState.userEmpCode,
+      createDate: DateTime.now());
 
   Future<void> _onSubmit() async {
     if (_formKey.currentState!.validate()) {

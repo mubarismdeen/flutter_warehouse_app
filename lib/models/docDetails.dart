@@ -6,10 +6,10 @@ class DocDetails {
   int docid = 0;
   DateTime dueDate = DateTime.now();
   DateTime renewedDate = DateTime.now();
-  String creatBy = '';
-  DateTime creatDt = DateTime.now();
+  String createBy = '';
+  DateTime createDate = DateTime.now();
   String editBy = '';
-  DateTime editDt = DateTime.now();
+  DateTime editDate = DateTime.now();
   int status = 1;
 
   DocDetails({
@@ -19,10 +19,10 @@ class DocDetails {
     required this.docid,
     required this.dueDate,
     required this.renewedDate,
-    required this.creatBy,
-    required this.creatDt,
+    required this.createBy,
+    required this.createDate,
     required this.editBy,
-    required this.editDt,
+    required this.editDate,
   });
 
   DocDetails.toJson();
@@ -35,10 +35,10 @@ class DocDetails {
         'docid': docid,
         'dueDate': dueDate.toIso8601String(),
         'renewedDate':renewedDate.toIso8601String(),
-        'creatBy':creatBy,
-        'creatDt':creatDt.toIso8601String(),
+        'createBy':createBy,
+        'createDate':createDate.toIso8601String(),
         'editBy':editBy,
-        'editDt':editDt.toIso8601String(),
+        'editDate':editDate.toIso8601String(),
         'status': status,
       };
 
@@ -49,10 +49,10 @@ class DocDetails {
     docid = json['docid'] ?? 0;
     dueDate = json['dueDate'] ?? DateTime.now();
     renewedDate = json['renewedDate'] ?? DateTime.now();
-    creatBy = json['creatBy'] ?? '';
-    creatDt = json['creatDt'] ?? DateTime.now();
+    createBy = json['createBy'] ?? '';
+    createDate = json['createDate'] ?? DateTime.now();
     editBy = json['editBy'] ?? '';
-    editDt = json['editDt'] ?? DateTime.now();
+    editDate = json['editDate'] ?? DateTime.now();
     status = json['status'] ?? 1;
   }
 }

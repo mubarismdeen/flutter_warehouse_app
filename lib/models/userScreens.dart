@@ -11,9 +11,9 @@ class UserScreens {
   bool leaveSalary = false;
   bool customers = false;
   bool gratuity = false;
-  int editBy = 0;
+  String editBy = "";
   DateTime editDate = DateTime.now();
-  int createBy = 0;
+  String createBy = "";
   DateTime createDate = DateTime.now();
 
   UserScreens({required this.createBy});
@@ -31,9 +31,9 @@ class UserScreens {
     leaveSalary =  json['leaveSalary']??false;
     customers =  json['customers']??false;
     gratuity =  json['gratuity']??false;
-    editBy = json['editBy']??"0";
+    editBy = json['editBy']??"";
     editDate = DateTime.parse(json['editDate']);
-    createBy = json['createBy']??"0";
+    createBy = json['createBy']??"";
     createDate = DateTime.parse(json['createDate']);
   }
 

@@ -7,9 +7,9 @@ class SalaryMaster {
   double overseas;
   double anchorage;
   String editBy;
-  DateTime editDt;
-  String creatBy;
-  DateTime creatDt;
+  DateTime editDate;
+  String createBy;
+  DateTime createDate;
   int status = 1;
 
   SalaryMaster({
@@ -21,9 +21,9 @@ class SalaryMaster {
     required this.overseas,
     required this.anchorage,
     required this.editBy,
-    required this.editDt,
-    required this.creatBy,
-    required this.creatDt,
+    required this.editDate,
+    required this.createBy,
+    required this.createDate,
   });
 
   Map<String, dynamic> toJson() => {
@@ -35,9 +35,9 @@ class SalaryMaster {
     'overseas': overseas,
     'anchorage': anchorage,
     'editBy': editBy,
-    'editDt': editDt.toIso8601String(),
-    'creatBy': creatBy,
-    'creatDt': creatDt.toIso8601String(),
+    'editDate': editDate.toIso8601String(),
+    'createBy': createBy,
+    'createDate': createDate.toIso8601String(),
     'status': status,
   };
 }

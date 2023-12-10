@@ -270,16 +270,16 @@ class _QuotationsExpandedWithFilterState
                                   Text(tableRow['dueDate'].toString()),
                                 ),
                                 DataCell(
-                                  Text(tableRow['creatBy'].toString()),
+                                  Text(tableRow['createBy'].toString()),
                                 ),
                                 DataCell(
-                                  Text(tableRow['creatDt'].toString()),
+                                  Text(tableRow['createDate'].toString()),
                                 ),
                                 DataCell(
                                   Text(tableRow['editBy'].toString()),
                                 ),
                                 DataCell(
-                                  Text(tableRow['editDt'].toString()),
+                                  Text(tableRow['editDate'].toString()),
                                 ),
                               ],
                               onSelectChanged: (selected) {

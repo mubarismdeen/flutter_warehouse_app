@@ -27,7 +27,7 @@ class _AddSalesFormState extends State<AddSalesForm> {
   var _anchorageRate = TextEditingController();
 
 
-  SalaryMaster _salaryMaster = SalaryMaster( id: 0, empCode: '', salary: 0, nOtr: 0, sOtr: 0, overseas: 0, anchorage: 0, editBy: '', editDt: DateTime.now(), creatBy: '', creatDt:  DateTime.now());
+  SalaryMaster _salaryMaster = SalaryMaster( id: 0, empCode: '', salary: 0, nOtr: 0, sOtr: 0, overseas: 0, anchorage: 0, editBy: '', editDate: DateTime.now(), createBy: '', createDate:  DateTime.now());
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {

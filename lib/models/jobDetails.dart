@@ -8,10 +8,10 @@ class JobDetails {
   int jobStatus = 0;
   int status = 1;
   String assignedTo = "";
-  String creatBy = "";
-  DateTime creatDt = DateTime.now();
+  String createBy = "";
+  DateTime createDate = DateTime.now();
   String editBy = "";
-  DateTime editDt = DateTime.now();
+  DateTime editDate = DateTime.now();
 
   JobDetails({
     required this.id,
@@ -22,10 +22,10 @@ class JobDetails {
     required this.status,
     required this.assignedTo,
     required this.dueDate,
-    required this.creatBy,
-    required this.creatDt,
+    required this.createBy,
+    required this.createDate,
     required this.editBy,
-    required this.editDt,
+    required this.editDate,
   });
 
   JobDetails.toJson();
@@ -40,10 +40,10 @@ class JobDetails {
         'status': status,
         'assignedTo': assignedTo,
         'dueDate': dueDate,
-        'creatBy':creatBy,
-        'creatDt':creatDt.toIso8601String(),
+        'createBy':createBy,
+        'createDate':createDate.toIso8601String(),
         'editBy':editBy,
-        'editDt':editDt.toIso8601String(),
+        'editDate':editDate.toIso8601String(),
       };
 
 }

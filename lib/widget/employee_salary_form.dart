@@ -48,9 +48,9 @@ class _EmployeeSalaryFormState extends State<EmployeeSalaryForm> {
       overseas: 0,
       anchorage: 0,
       editBy: GlobalState.userEmpCode,
-      editDt: DateTime.now(),
-      creatBy: GlobalState.userEmpCode,
-      creatDt: DateTime.now());
+      editDate: DateTime.now(),
+      createBy: GlobalState.userEmpCode,
+      createDate: DateTime.now());
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {

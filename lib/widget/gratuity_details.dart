@@ -32,9 +32,9 @@ class _GratuityDetailsWidgetState extends State<GratuityDetailsWidget> {
       paid: false,
       paidDt: DateTime.now(),
       editBy: GlobalState.userEmpCode,
-      editDt: DateTime.now(),
-      creatBy: GlobalState.userEmpCode,
-      creatDt: DateTime.now());
+      editDate: DateTime.now(),
+      createBy: GlobalState.userEmpCode,
+      createDate: DateTime.now());
 
   @override
   Widget build(BuildContext context) {
@@ -136,9 +136,9 @@ class _GratuityDetailsWidgetState extends State<GratuityDetailsWidget> {
                                           ),
                               ),
                               // DataCell(Text(gratuity.editBy.toString())),
-                              // DataCell(Text(getDateStringFromDateTime(gratuity.editDt))),
-                              // DataCell(Text(gratuity.creatBy.toString())),
-                              // DataCell(Text(getDateStringFromDateTime(gratuity.creatDt))),
+                              // DataCell(Text(getDateStringFromDateTime(gratuity.editDate))),
+                              // DataCell(Text(gratuity.createBy.toString())),
+                              // DataCell(Text(getDateStringFromDateTime(gratuity.createDate))),
                             ]))
                         .toList(),
                   ),
@@ -227,7 +227,7 @@ class _GratuityDetailsWidgetState extends State<GratuityDetailsWidget> {
     _salaryPaid.paidBy = 1;
     _salaryPaid.paid = _salaryPaid.due == 0 ? true : false;
     // _salaryPaid.paid = salary.due == _paidAmount ? 1 : 0;
-    _salaryPaid.creatBy = GlobalState.userEmpCode;
+    _salaryPaid.createBy = GlobalState.userEmpCode;
     _salaryPaid.editBy = GlobalState.userEmpCode;
 
     bool status = await saveSalaryPaid(_salaryPaid);

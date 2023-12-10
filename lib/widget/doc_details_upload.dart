@@ -56,10 +56,10 @@ class _DocDetailsUploadState extends State<DocDetailsUpload> {
       docid: 0,
       dueDate: DateTime.now(),
       renewedDate: DateTime.now(),
-      creatBy: GlobalState.userEmpCode,
-      creatDt: DateTime.now(),
+      createBy: GlobalState.userEmpCode,
+      createDate: DateTime.now(),
       editBy: GlobalState.userEmpCode,
-      editDt: DateTime.now());
+      editDate: DateTime.now());
 
   Future<void> _onSubmit() async {
     if (_formKey.currentState!.validate()) {

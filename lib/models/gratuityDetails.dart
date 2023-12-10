@@ -6,9 +6,9 @@ class GratuityDetails {
   String type = '';
   String gratuityAmount = '';
   String editBy = '';
-  DateTime editDt = DateTime.now();
-  String creatBy = '';
-  DateTime creatDt = DateTime.now();
+  DateTime editDate = DateTime.now();
+  String createBy = '';
+  DateTime createDate = DateTime.now();
 
   GratuityDetails({
     required this.id,
@@ -18,9 +18,9 @@ class GratuityDetails {
     required this.type,
     required this.gratuityAmount,
     required this.editBy,
-    required this.editDt,
-    required this.creatBy,
-    required this.creatDt,
+    required this.editDate,
+    required this.createBy,
+    required this.createDate,
   });
 
   GratuityDetails.fromJson(Map<String, dynamic> json) {
@@ -31,9 +31,9 @@ class GratuityDetails {
     type = json['type']??'';
     gratuityAmount = json['gratuityAmount']??'';
     editBy = json['editBy']??'';
-    editDt = DateTime.parse(json['editDt']);
-    creatBy = json['creatBy']??'';
-    creatDt = DateTime.parse(json['creatDt']);
+    editDate = DateTime.parse(json['editDate']);
+    createBy = json['createBy']??'';
+    createDate = DateTime.parse(json['createDate']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -44,8 +44,8 @@ class GratuityDetails {
     'type': type,
     'gratuityAmount': gratuityAmount,
     'editBy': editBy,
-    'editDt': editDt.toIso8601String(),
-    'creatBy': creatBy,
-    'creatDt': creatDt.toIso8601String(),
+    'editDate': editDate.toIso8601String(),
+    'createBy': createBy,
+    'createDate': createDate.toIso8601String(),
   };
 }

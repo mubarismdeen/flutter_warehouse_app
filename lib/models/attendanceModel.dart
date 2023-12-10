@@ -12,9 +12,9 @@ class AttendanceModel {
   double anchorage;
   String date;
   String editBy;
-  DateTime editDt;
-  String creatBy;
-  DateTime creatDt;
+  DateTime editDate;
+  String createBy;
+  DateTime createDate;
 
   AttendanceModel({
     required this.id,
@@ -28,9 +28,9 @@ class AttendanceModel {
     required this.anchorage,
     required this.date,
     required this.editBy,
-    required this.editDt,
-    required this.creatBy,
-    required this.creatDt,
+    required this.editDate,
+    required this.createBy,
+    required this.createDate,
   });
 
   Map<String, dynamic> toJson() {
@@ -46,9 +46,9 @@ class AttendanceModel {
     data['anchorage'] = anchorage;
     data['date'] = date;
     data['editBy'] = editBy;
-    data['editDt'] = DateFormat('yyyy-MM-dd HH:mm').format(editDt);
-    data['creatBy'] = creatBy;
-    data['creatDt'] = DateFormat('yyyy-MM-dd HH:mm').format(creatDt);
+    data['editDate'] = DateFormat('yyyy-MM-dd HH:mm').format(editDate);
+    data['createBy'] = createBy;
+    data['createDate'] = DateFormat('yyyy-MM-dd HH:mm').format(createDate);
     return data;
   }
 }

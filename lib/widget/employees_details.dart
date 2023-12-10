@@ -127,10 +127,8 @@ class _EmployeeDetailsWidgetState extends State<EmployeeDetailsWidget> {
                             DataCell(Text(employee.nationality)),
                             DataCell(Text(employee.department)),
                             DataCell(Text(employee.status)),
-                            DataCell(Text(
-                                getDateStringFromDateTime(employee.birthDt))),
-                            DataCell(Text(
-                                getDateStringFromDateTime(employee.joinDt))),
+                            DataCell(Text(employee.birthDt)),
+                            DataCell(Text(employee.joinDt)),
                             DataCell(Text(employee.createBy)),
                             DataCell(Text(getDateStringFromDateTime(
                                 employee.createDt))),

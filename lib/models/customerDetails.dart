@@ -5,9 +5,9 @@ class CustomerDetails {
   String mobile1 = '';
   String mobile2 = '';
   String editBy = '';
-  DateTime editDt = DateTime.now();
-  String creatBy = '';
-  DateTime creatDt = DateTime.now();
+  DateTime editDate = DateTime.now();
+  String createBy = '';
+  DateTime createDate = DateTime.now();
   int status = 1;
 
   CustomerDetails({
@@ -17,9 +17,9 @@ class CustomerDetails {
     required this.mobile1,
     required this.mobile2,
     required this.editBy,
-    required this.editDt,
-    required this.creatBy,
-    required this.creatDt,
+    required this.editDate,
+    required this.createBy,
+    required this.createDate,
   });
 
   CustomerDetails.fromJson(Map<String, dynamic> json) {
@@ -29,9 +29,9 @@ class CustomerDetails {
     mobile1 = json['mobile1']??'';
     mobile2 = json['mobile2']??'';
     editBy = json['editBy']??'';
-    editDt = DateTime.parse(json['editDt']);
-    creatBy = json['creatBy']??'';
-    creatDt = DateTime.parse(json['creatDt']);
+    editDate = DateTime.parse(json['editDate']);
+    createBy = json['createBy']??'';
+    createDate = DateTime.parse(json['createDate']);
     status = json['status']??0;
   }
 
@@ -42,9 +42,9 @@ class CustomerDetails {
     'mobile1': mobile1,
     'mobile2': mobile2,
     'editBy': editBy,
-    'editDt': editDt.toIso8601String(),
-    'creatBy': creatBy,
-    'creatDt': creatDt.toIso8601String(),
+    'editDate': editDate.toIso8601String(),
+    'createBy': createBy,
+    'createDate': createDate.toIso8601String(),
     'status': status,
   };
 }

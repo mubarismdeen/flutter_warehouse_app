@@ -10,7 +10,7 @@ class EmployeeDetails {
   String birthDt = '';
   String joinDt = '';
   String editBy = '';
-  DateTime editDt = DateTime.now();
+  DateTime editDate = DateTime.now();
   String createBy = '';
   DateTime createDt = DateTime.now();
 
@@ -26,7 +26,7 @@ class EmployeeDetails {
     required this.birthDt,
     required this.joinDt,
     required this.editBy,
-    required this.editDt,
+    required this.editDate,
     required this.createBy,
     required this.createDt,
   });
@@ -43,7 +43,7 @@ class EmployeeDetails {
     birthDt = json['birthDt']??'';
     joinDt = json['joinDt']??'';
     editBy = json['editBy']??'';
-    editDt = DateTime.parse(json['editDt']);
+    editDate = DateTime.parse(json['editDate']);
     createBy = json['createBy']??'';
     createDt = DateTime.parse(json['createDt']);
   }

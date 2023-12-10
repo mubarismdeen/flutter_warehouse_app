@@ -312,8 +312,8 @@ class _EmployeeAccessesDialogState extends State<EmployeeAccessesDialog> {
                             userId: _userDetails.userId,
                             privilegeName:
                                 _getPrivilegeNameForDisplayValue(selectedOption),
-                            creatBy: GlobalState.userEmpCode,
-                            creatDt: DateTime.now(),
+                            createBy: GlobalState.userEmpCode,
+                            createDate: DateTime.now(),
                           );
 
                           _privilegesList.add(newPrivilege);
@@ -461,7 +461,7 @@ class _EmployeeAccessesDialogState extends State<EmployeeAccessesDialog> {
   }
 
   Future<void> _onScreensSubmit() async {
-    _userScreens.editBy = GlobalState.userId;
+    _userScreens.editBy = GlobalState.username;
     _userScreens.editDate = DateTime.now();
     _userScreens.userId = _userDetails.userId;
 
@@ -480,7 +480,7 @@ class _EmployeeAccessesDialogState extends State<EmployeeAccessesDialog> {
   Future<void> _onPrivilegesSubmit() async {
     for (int i = 0; i < _privilegesList.length; i++) {
       _privilegesList[i].editBy = GlobalState.userEmpCode;
-      _privilegesList[i].editDt = DateTime.now();
+      _privilegesList[i].editDate = DateTime.now();
     }
     bool status = await savePrivilegesForUser(_privilegesList);
     if (status) {

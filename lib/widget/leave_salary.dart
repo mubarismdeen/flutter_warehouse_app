@@ -28,9 +28,9 @@ class _LeaveSalaryWidgetState extends State<LeaveSalaryWidget> {
       paid: false,
       paidDt: DateTime.now(),
       editBy: GlobalState.userEmpCode,
-      editDt: DateTime.now(),
-      creatBy: GlobalState.userEmpCode,
-      creatDt: DateTime.now());
+      editDate: DateTime.now(),
+      createBy: GlobalState.userEmpCode,
+      createDate: DateTime.now());
 
   getData() async {
     _leaveSalaries =
@@ -112,7 +112,7 @@ class _LeaveSalaryWidgetState extends State<LeaveSalaryWidget> {
     _salaryPaid.paidBy = 1;
     // _salaryPaid.paid = salary.pendingAmt == _paidAmount ? 1 : 0;
     _salaryPaid.paid = salary.pendingAmt == _paidAmount ? true : false;
-    _salaryPaid.creatBy = GlobalState.userEmpCode;
+    _salaryPaid.createBy = GlobalState.userEmpCode;
     _salaryPaid.editBy = GlobalState.userEmpCode;
 
     bool status = await saveSalaryPaid(_salaryPaid);

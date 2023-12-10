@@ -8,11 +8,11 @@ class UserPrivileges {
   bool editPrivilege = false;
   bool deletePrivilege = false;
   String editBy = '';
-  DateTime editDt = DateTime.now();
-  String creatBy = '';
-  DateTime creatDt = DateTime.now();
+  DateTime editDate = DateTime.now();
+  String createBy = '';
+  DateTime createDate = DateTime.now();
 
-  UserPrivileges({required this.userId, required this.privilegeName, required this.creatBy, required this.creatDt});
+  UserPrivileges({required this.userId, required this.privilegeName, required this.createBy, required this.createDate});
 
   UserPrivileges.fromJson(Map<String, dynamic> json) {
     id =  json['id']??"0";
@@ -23,9 +23,9 @@ class UserPrivileges {
     editPrivilege =  json['editPrivilege']??false;
     deletePrivilege =  json['deletePrivilege']??false;
     editBy = json['editBy']??'';
-    editDt = DateTime.parse(json['editDt']);
-    creatBy = json['creatBy']??'';
-    creatDt = DateTime.parse(json['creatDt']);
+    editDate = DateTime.parse(json['editDate']);
+    createBy = json['createBy']??'';
+    createDate = DateTime.parse(json['createDate']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -37,9 +37,9 @@ class UserPrivileges {
     'editPrivilege': editPrivilege,
     'deletePrivilege': deletePrivilege,
     'editBy': editBy,
-    'editDt': editDt.toIso8601String(),
-    'creatBy': creatBy,
-    'creatDt': creatDt.toIso8601String(),
+    'editDate': editDate.toIso8601String(),
+    'createBy': createBy,
+    'createDate': createDate.toIso8601String(),
   };
 
 }

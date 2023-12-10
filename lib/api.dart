@@ -19,6 +19,7 @@ import 'models/empMaster.dart';
 import 'models/salaryMaster.dart';
 import 'models/salaryMasterGet.dart';
 import 'models/salaryPay.dart';
+import 'models/stock.dart';
 import 'models/userDetails.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -363,4 +364,9 @@ Future<bool> deleteCustomerDetails(int customerId) async {
   return await httpConnect(urlWithParams, HttpMethod.GET) as bool;
 }
 
-
+Future<List<Stock>> getTotalStock() async {
+  String urlWithParams = "http://$ip/stock/getTotalStock";
+  List<Stock> list = (await httpConnect(urlWithParams, HttpMethod.GET))
+      .map((job) => Stock.fromJson(job)).cast<Stock>().toList();
+  return list;
+}

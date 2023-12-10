@@ -120,13 +120,13 @@ class _DocExpiryExpandedState extends State<DocExpiryExpanded> {
                               Text(tableRow['editBy'].toString()),
                             ),
                             DataCell(
-                              Text(tableRow['editDt'].toString()),
+                              Text(tableRow['editDate'].toString()),
                             ),
                             DataCell(
-                              Text(tableRow['creatBy'].toString()),
+                              Text(tableRow['createBy'].toString()),
                             ),
                             DataCell(
-                              Text(tableRow['creatDt'].toString()),
+                              Text(tableRow['createDate'].toString()),
                             )
                           ],
                           onSelectChanged: (selected) {

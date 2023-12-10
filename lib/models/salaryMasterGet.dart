@@ -8,9 +8,9 @@ class SalaryMasterGet {
   double overseas = 0;
   double anchorage = 0;
   String editBy = '';
-  DateTime editDt = DateTime.now();
-  String creatBy = '';
-  DateTime creatDt = DateTime.now();
+  DateTime editDate = DateTime.now();
+  String createBy = '';
+  DateTime createDate = DateTime.now();
 
   SalaryMasterGet.fromJson(Map<String, dynamic> json) {
     id= json['id'] ?? 0;
@@ -22,8 +22,8 @@ class SalaryMasterGet {
     overseas = json['overseas']??0.0;
     anchorage = json['anchorage']??0.0;
     editBy = json['editBy']??'';
-    editDt = DateTime.parse(json['editDt']);
-    creatBy = json['creatBy']??'';
-    creatDt = DateTime.parse(json['creatDt']);
+    editDate = DateTime.parse(json['editDate']);
+    createBy = json['createBy']??'';
+    createDate = DateTime.parse(json['createDate']);
   }
 }

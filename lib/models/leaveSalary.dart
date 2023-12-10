@@ -11,7 +11,7 @@ class LeaveSalary{
   bool paid = false;
   String editBy = '';
   DateTime editDate = DateTime.now();
-  String creatBy = '';
+  String createBy = '';
   DateTime creatDate = DateTime.now();
 
   LeaveSalary({
@@ -20,7 +20,7 @@ class LeaveSalary{
     required this.name,
     required this.editBy,
     required this.editDate,
-    required this.creatBy,
+    required this.createBy,
     required this.creatDate,
     required this.salary,
     required this.payAmt,
@@ -36,7 +36,7 @@ class LeaveSalary{
     'empCode': empCode,
     'editBy': editBy,
     'editDate': editDate.toIso8601String(),
-    'creatBy': creatBy,
+    'createBy': createBy,
     'creatDate': creatDate.toIso8601String(),
   };
 
@@ -46,7 +46,7 @@ class LeaveSalary{
     name = json['name']??'';
     editBy = json['editBy']??'';
     editDate = DateTime.parse(json['editDate']);
-    creatBy = json['creatBy']??'';
+    createBy = json['createBy']??'';
     creatDate = DateTime.parse(json['creatDate']);
     salary = json['salary']??0.0;
     payAmt = json['payAmt']??0.0;

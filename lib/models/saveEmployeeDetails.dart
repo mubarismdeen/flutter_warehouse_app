@@ -12,7 +12,7 @@ class SaveEmployeeDetails {
   DateTime birthDt = DateTime.now();
   String editBy = '';
   DateTime editDate = DateTime.now();
-  String creatBy = '';
+  String createBy = '';
   DateTime creatDate = DateTime.now();
   int status = 1;
 
@@ -30,7 +30,7 @@ class SaveEmployeeDetails {
     required this.birthDt,
     required this.editBy,
     required this.editDate,
-    required this.creatBy,
+    required this.createBy,
     required this.creatDate,
   });
 
@@ -47,9 +47,9 @@ class SaveEmployeeDetails {
     'resignDt': resignDt?.toIso8601String(),
     'birthDt': birthDt.toIso8601String(),
     'editBy': editBy,
-    'editDt': editDate.toIso8601String(),
-    'creatBy': creatBy,
-    'creatDt': creatDate.toIso8601String(),
+    'editDate': editDate.toIso8601String(),
+    'createBy': createBy,
+    'createDate': creatDate.toIso8601String(),
     'status': status,
   };
 
