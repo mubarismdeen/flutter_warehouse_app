@@ -12,7 +12,7 @@ class EmployeeDetails {
   String editBy = '';
   DateTime editDate = DateTime.now();
   String createBy = '';
-  DateTime createDt = DateTime.now();
+  DateTime createDate = DateTime.now();
 
   EmployeeDetails({
     required this.id,
@@ -28,7 +28,7 @@ class EmployeeDetails {
     required this.editBy,
     required this.editDate,
     required this.createBy,
-    required this.createDt,
+    required this.createDate,
   });
 
   EmployeeDetails.fromJson(Map<String, dynamic> json) {
@@ -45,6 +45,6 @@ class EmployeeDetails {
     editBy = json['editBy']??'';
     editDate = DateTime.parse(json['editDate']);
     createBy = json['createBy']??'';
-    createDt = DateTime.parse(json['createDt']);
+    createDate = DateTime.parse(json['createDate']);
   }
 }

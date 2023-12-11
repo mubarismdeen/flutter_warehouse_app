@@ -131,7 +131,7 @@ class _EmployeeDetailsWidgetState extends State<EmployeeDetailsWidget> {
                             DataCell(Text(employee.joinDt)),
                             DataCell(Text(employee.createBy)),
                             DataCell(Text(getDateStringFromDateTime(
-                                employee.createDt))),
+                                employee.createDate))),
                           ]))
                       .toList(),
                 ),

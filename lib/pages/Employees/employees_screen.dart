@@ -239,7 +239,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
                   DataCell(Text(employee.birthDt)),
                   DataCell(Text(employee.joinDt)),
                   DataCell(Text(employee.createBy)),
-                  DataCell(Text(getDateStringFromDateTime(employee.createDt))),
+                  DataCell(Text(getDateStringFromDateTime(employee.createDate))),
                   DataCell(
                     IconButton(
                       icon: const Icon(Icons.settings_outlined,
