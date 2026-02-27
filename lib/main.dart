@@ -28,12 +28,6 @@ class MyApp extends StatelessWidget {
         ).apply(
           bodyColor: Colors.black
         ),
-        // pageTransitionsTheme: const PageTransitionsTheme(
-        //   builders: {
-        //     TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
-        //     TargetPlatform.android: FadeUpwardsPageTransitionsBuilder()
-        //   }
-        // ),
         colorScheme: ColorScheme.light(primary: themeColor)
       ),
       home: LoginPage(),

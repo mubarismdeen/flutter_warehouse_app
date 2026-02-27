@@ -1,4 +1,5 @@
 class Stock {
+  String location = '';
   String batchCode = '';
   String productCode = '';
   String productName = '';
@@ -13,6 +14,7 @@ class Stock {
   int status = 1;
 
   Stock({
+    required this.location,
     required this.batchCode,
     required this.productCode,
     required this.productName,
@@ -27,6 +29,7 @@ class Stock {
   });
 
   Stock.fromJson(Map<String, dynamic> json) {
+    location = json['location']??'';
     batchCode = json['batchCode']??'';
     productCode = json['productCode']??'';
     productName = json['productName']??'';
@@ -41,15 +44,4 @@ class Stock {
     status = json['status']??0;
   }
 
-  // Map<String, dynamic> toJson() => {
-  //   'name': batchCode,
-  //   'address': address,
-  //   'mobile1': mobile1,
-  //   'mobile2': mobile2,
-  //   'editBy': editBy,
-  //   'editDate': editDate.toIso8601String(),
-  //   'createBy': createBy,
-  //   'createDate': createDate.toIso8601String(),
-  //   'status': status,
-  // };
 }

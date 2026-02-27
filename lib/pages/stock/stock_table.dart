@@ -40,6 +40,14 @@ class _StockTableState extends State<StockTable> {
                           DataColumn(
                             label: Expanded(
                               child: Text(
+                                'Location',
+                                style: tableHeaderStyle,
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Expanded(
+                              child: Text(
                                 'Batch\nCode',
                                 style: tableHeaderStyle,
                               ),
@@ -128,6 +136,7 @@ class _StockTableState extends State<StockTable> {
                         ],
                         rows: _totalStock
                             .map((stock) => DataRow(cells: [
+                          DataCell(Text(stock.location)),
                           DataCell(Text(stock.batchCode)),
                           DataCell(Text(stock.productCode)),
                           DataCell(Text(stock.productName)),

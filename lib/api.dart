@@ -126,7 +126,7 @@ Future<List<UserPrivileges>> getAPrivilegeForUser(String username, String privil
 }
 
 Future<bool> savePrivilegesForUser(List<UserPrivileges> privilegesList) async {
-  String urlWithParams = "http://$ip/Hrms/savePrivilegesForUser";
+  String urlWithParams = "http://$ip/privileges/savePrivilegesForUser";
   var jsonData = jsonEncode(privilegesList);
   return await httpConnect(urlWithParams, HttpMethod.POST, jsonData) as bool;
 }
@@ -186,6 +186,12 @@ Future<List<Map<String, dynamic>>> getGratuityDetails() async {
 }
 
 Future<bool> saveSalaryMaster(SalaryMaster salaryMaster) async {
+  String urlWithParams = "http://$ip/Hrms/saveSalaryMaster";
+  var jsonData = jsonEncode(salaryMaster);
+  return await httpConnect(urlWithParams, HttpMethod.POST, jsonData) as bool;
+}
+
+Future<bool> saveStocks(SalaryMaster salaryMaster) async {
   String urlWithParams = "http://$ip/Hrms/saveSalaryMaster";
   var jsonData = jsonEncode(salaryMaster);
   return await httpConnect(urlWithParams, HttpMethod.POST, jsonData) as bool;
@@ -254,13 +260,6 @@ Future<List<SalaryPay>> getSalaryPay(String date) async {
   return list;
 }
 
-Future<List<SalaryMasterGet>> getSalaryMaster(String date) async {
-  String urlWithParams = "http://$ip/Hrms/getSalary?date=$date";
-  List<SalaryMasterGet> list = (await httpConnect(urlWithParams, HttpMethod.GET))
-      .map((job) => SalaryMasterGet.fromJson(job)).cast<SalaryMasterGet>().toList();
-  return list;
-}
-
 Future<List<EmployeeDetails>> getEmployeeDetails() async {
   String urlWithParams = "http://$ip/employees/getEmployeeDetails";
   List<EmployeeDetails> list = (await httpConnect(urlWithParams, HttpMethod.GET))
@@ -300,7 +299,7 @@ Future<bool> deleteJobDetails(int jobId) async {
 }
 
 Future<bool> saveEmployeeDetails(SaveEmployeeDetails employeeDetails) async {
-  String urlWithParams = "http://$ip/Hrms/saveEmployeeDetails";
+  String urlWithParams = "http://$ip/employees/saveEmployeeDetails";
   var jsonData = jsonEncode(employeeDetails);
   return await httpConnect(urlWithParams, HttpMethod.POST, jsonData) as bool;
 }
@@ -363,6 +362,14 @@ Future<bool> deleteCustomerDetails(int customerId) async {
   String urlWithParams = "http://$ip/Hrms/DeleteCustomerDetails?id=$customerId";
   return await httpConnect(urlWithParams, HttpMethod.GET) as bool;
 }
+
+Future<List<SalaryMasterGet>> getSalaryMaster(String date) async {
+  String urlWithParams = "http://$ip/Hrms/getSalary?date=$date";
+  List<SalaryMasterGet> list = (await httpConnect(urlWithParams, HttpMethod.GET))
+      .map((job) => SalaryMasterGet.fromJson(job)).cast<SalaryMasterGet>().toList();
+  return list;
+}
+
 
 Future<List<Stock>> getTotalStock() async {
   String urlWithParams = "http://$ip/stock/getTotalStock";

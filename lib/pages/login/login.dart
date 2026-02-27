@@ -85,58 +85,60 @@ class _MainViewState extends State<_MainView> {
     List<Widget> listViewChildren;
     bool logStatus1 = false;
 
-      listViewChildren = [
-        _AppLogo(isDesktop),
-        _UsernameInput(
-          maxWidth: 400,
-          usernameController: widget.usernameController,
-        ),
-        const SizedBox(height: 12),
-        _PasswordInput(
-          maxWidth: 400,
-          passwordController: widget.passwordController,
-        ),
-        const SizedBox(height: 12),
-        _LoginButton(
-          maxWidth: 400,
-          onTap: () async {
+    listViewChildren = [
+      _AppLogo(isDesktop),
+      _UsernameInput(
+        maxWidth: 400,
+        usernameController: widget.usernameController,
+      ),
+      const SizedBox(height: 12),
+      _PasswordInput(
+        maxWidth: 400,
+        passwordController: widget.passwordController,
+      ),
+      const SizedBox(height: 12),
+      _LoginButton(
+        maxWidth: 400,
+        onTap: () async {
+          setState(() {
+            showLoading = true;
+          });
+
+          List<UserScreens> screensForUser = [];
+          try {
+            screensForUser = await authorizeUser(
+              widget.usernameController!.text,
+              widget.passwordController!.text,
+            );
+          } catch (ex) {
             setState(() {
-              showLoading = true;
-            });
-
-            List<UserScreens> screensForUser = [];
-            try {
-              screensForUser = await authorizeUser(
-                widget.usernameController!.text,
-                widget.passwordController!.text,
-              );
-            } catch (ex) {
-              setState(() {
-                showError = false;
-              });
-              showSaveFailedMessage(context, "Error in establishing connection with the server");
-            }
-
-            if (screensForUser.isNotEmpty) {
-              logStatus1 = true;
-              GlobalState.setScreensForUser(widget.usernameController!.text, screensForUser.first);
-            }
-            if (logStatus1) {
               showError = false;
-              setState(() {
-                showLoading = false;
-              });
-              _login(context);
-            } else {
-              showError = true;
-              setState(() {
-                showLoading = false;
-              });
-            }
-          },
-          status: showError,
-        ),
-      ];
+            });
+            showSaveFailedMessage(
+                context, "Error in establishing connection with the server");
+          }
+
+          if (screensForUser.isNotEmpty) {
+            logStatus1 = true;
+            GlobalState.setScreensForUser(
+                widget.usernameController!.text, screensForUser.first);
+          }
+          if (logStatus1) {
+            showError = false;
+            setState(() {
+              showLoading = false;
+            });
+            _login(context);
+          } else {
+            showError = true;
+            setState(() {
+              showLoading = false;
+            });
+          }
+        },
+        status: showError,
+      ),
+    ];
 
     return Column(
       children: [
@@ -233,13 +235,15 @@ class InputBox extends StatelessWidget {
   String? displayText;
   final TextEditingController? controller;
   bool obscureText;
+  final Widget? suffixIcon;
 
   InputBox(
       {Key? key,
       this.maxWidth,
       required this.displayText,
       required this.obscureText,
-      this.controller})
+      this.controller,
+      this.suffixIcon})
       : super(key: key);
 
   @override
@@ -258,6 +262,7 @@ class InputBox extends StatelessWidget {
           focusColor: Colors.white,
           enabledBorder: inputBoxStyle,
           focusedBorder: inputBoxStyle,
+          suffixIcon: suffixIcon,
         ),
         cursorColor: RallyColors.buttonColor,
       ),
@@ -265,7 +270,7 @@ class InputBox extends StatelessWidget {
   }
 }
 
-class _PasswordInput extends StatelessWidget {
+class _PasswordInput extends StatefulWidget {
   const _PasswordInput({
     this.maxWidth,
     this.passwordController,
@@ -275,14 +280,32 @@ class _PasswordInput extends StatelessWidget {
   final TextEditingController? passwordController;
 
   @override
+  State<_PasswordInput> createState() => _PasswordInputState();
+}
+
+class _PasswordInputState extends State<_PasswordInput> {
+  bool _obscurePassword = true;
+
+  @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,
       child: InputBox(
-          maxWidth: maxWidth,
+          maxWidth: widget.maxWidth,
           displayText: "Password",
-          obscureText: true,
-          controller: passwordController),
+          obscureText: _obscurePassword,
+          controller: widget.passwordController,
+          suffixIcon: IconButton(
+            icon: Icon(
+              _obscurePassword ? Icons.visibility_off : Icons.visibility,
+              color: RallyColors.buttonColor,
+            ),
+            onPressed: () {
+              setState(() {
+                _obscurePassword = !_obscurePassword;
+              });
+            },
+          )),
     );
   }
 }
