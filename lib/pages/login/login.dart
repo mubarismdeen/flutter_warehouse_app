@@ -250,21 +250,29 @@ class InputBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(maxWidth: maxWidth ?? double.infinity),
-      child: TextField(
-        style: const TextStyle(color: Colors.white),
-        autofillHints: const [AutofillHints.username],
-        textInputAction: TextInputAction.next,
-        obscureText: obscureText,
-        controller: controller,
-        decoration: InputDecoration(
-          labelText: displayText,
-          labelStyle: const TextStyle(color: RallyColors.buttonColor),
-          focusColor: Colors.white,
-          enabledBorder: inputBoxStyle,
-          focusedBorder: inputBoxStyle,
-          suffixIcon: suffixIcon,
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          textSelectionTheme: TextSelectionThemeData(
+            selectionColor: RallyColors.buttonColor.withOpacity(0.5),
+            selectionHandleColor: RallyColors.buttonColor,
+          ),
         ),
-        cursorColor: RallyColors.buttonColor,
+        child: TextField(
+          style: const TextStyle(color: Colors.white),
+          autofillHints: const [AutofillHints.username],
+          textInputAction: TextInputAction.next,
+          obscureText: obscureText,
+          controller: controller,
+          decoration: InputDecoration(
+            labelText: displayText,
+            labelStyle: const TextStyle(color: RallyColors.buttonColor),
+            focusColor: Colors.white,
+            enabledBorder: inputBoxStyle,
+            focusedBorder: inputBoxStyle,
+            suffixIcon: suffixIcon,
+          ),
+          cursorColor: RallyColors.buttonColor,
+        ),
       ),
     );
   }
