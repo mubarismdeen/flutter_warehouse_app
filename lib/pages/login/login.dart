@@ -95,6 +95,40 @@ class _MainViewState extends State<_MainView> {
       _PasswordInput(
         maxWidth: 400,
         passwordController: widget.passwordController,
+        onSubmitted: () async {
+          setState(() {
+            showLoading = true;
+          });
+
+          List<UserScreens> screensForUser = [];
+          try {
+            screensForUser = await authorizeUser(
+              widget.usernameController!.text,
+              widget.passwordController!.text,
+            );
+          } catch (ex) {
+            setState(() {
+              showError = false;
+            });
+            showSaveFailedMessage(
+                context, "Error in establishing connection with the server");
+          }
+
+          if (screensForUser.isNotEmpty) {
+            GlobalState.setScreensForUser(
+                widget.usernameController!.text, screensForUser.first);
+            showError = false;
+            setState(() {
+              showLoading = false;
+            });
+            _login(context);
+          } else {
+            showError = true;
+            setState(() {
+              showLoading = false;
+            });
+          }
+        },
       ),
       const SizedBox(height: 12),
       _LoginButton(
@@ -236,6 +270,8 @@ class InputBox extends StatelessWidget {
   final TextEditingController? controller;
   bool obscureText;
   final Widget? suffixIcon;
+  final TextInputAction? textInputAction;
+  final VoidCallback? onSubmitted;
 
   InputBox(
       {Key? key,
@@ -243,7 +279,9 @@ class InputBox extends StatelessWidget {
       required this.displayText,
       required this.obscureText,
       this.controller,
-      this.suffixIcon})
+      this.suffixIcon,
+      this.textInputAction,
+      this.onSubmitted})
       : super(key: key);
 
   @override
@@ -260,9 +298,10 @@ class InputBox extends StatelessWidget {
         child: TextField(
           style: const TextStyle(color: Colors.white),
           autofillHints: const [AutofillHints.username],
-          textInputAction: TextInputAction.next,
+          textInputAction: textInputAction ?? TextInputAction.next,
           obscureText: obscureText,
           controller: controller,
+          onSubmitted: (_) => onSubmitted?.call(),
           decoration: InputDecoration(
             labelText: displayText,
             labelStyle: const TextStyle(color: RallyColors.buttonColor),
@@ -282,10 +321,12 @@ class _PasswordInput extends StatefulWidget {
   const _PasswordInput({
     this.maxWidth,
     this.passwordController,
+    this.onSubmitted,
   });
 
   final double? maxWidth;
   final TextEditingController? passwordController;
+  final VoidCallback? onSubmitted;
 
   @override
   State<_PasswordInput> createState() => _PasswordInputState();
@@ -303,6 +344,8 @@ class _PasswordInputState extends State<_PasswordInput> {
           displayText: "Password",
           obscureText: _obscurePassword,
           controller: widget.passwordController,
+          textInputAction: TextInputAction.done,
+          onSubmitted: widget.onSubmitted,
           suffixIcon: IconButton(
             icon: Icon(
               _obscurePassword ? Icons.visibility_off : Icons.visibility,
